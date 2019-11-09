@@ -19,7 +19,7 @@
 	</div>
 	
 	<nav class="navbar navbar-expand-lg navbar-light bg-light">
-	  <a class="navbar-brand" href="/CNJava">Home</a>
+	  <a class="navbar-brand" href="/CNJava/">Home</a>
 
 	
 	  <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -30,14 +30,30 @@
 		      </li>
 	      </c:forEach>
 	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-	          Dropdown
+	        <a class="nav-link dropdown-toggle" href="/project2/giohang" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	          <c:if test="${sessionScope.count>0}">Cart(${sessionScope.count})</c:if>
+	          <c:if test="${sessionScope.count==0 || sessionScope.count==null}">Cart</c:if>
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	          <a class="dropdown-item" href="#">Action</a>
-	          <a class="dropdown-item" href="#">Another action</a>
-	          <div class="dropdown-divider"></div>
-	          <a class="dropdown-item" href="#">Something else here</a>
+	          <c:forEach var="item" items="${sessionScope.myCartItems}">
+	          	  <div class="row">
+		          	<div class="col-4"><img src="<c:url value='/resources/images/${item.value.sanPham.hinhAnh}' />" alt="..." class="img-thumbnail"></div>
+		          	<div class="col" style="si">
+		          		<div style="font-size:9px;">Tên sản phâm: ${item.value.sanPham.tenSanPham}</div>
+		          		<div style="font-size:9px;">Số lượng: ${item.value.soLuong}</div>
+		          		<div style="font-size:9px;">Đơn giá: ${item.value.sanPham.donGia}</div>
+		          	</div>
+		          </div>
+	          </c:forEach>
+	          <c:if test="${sessionScope.count>0}">
+		          <div class="dropdown-divider"></div>
+		          <div class="row">
+		          	<div class="col-12" style="font-size:9px;">Tổng tiền: ${sessionScope.totalCart} vnđ</div>
+		          	<div class="col-12">
+			          	<a href="/CNJava/giohang"><span style="font-size:10px; margin-left:0px;">Chi tiết</span></a>
+			        </div>
+		          </div>
+	          </c:if>
 	        </div>
 	      </li>
 	    </ul>

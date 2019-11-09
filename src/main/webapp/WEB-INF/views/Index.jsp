@@ -4,6 +4,7 @@
 	<jsp:include page="Header.jsp"></jsp:include>
 	
 	
+	
 	<div class="row">
 		<div class="col-12" style="text-align:center;margin-top:20px;margin-bottom:20px;">
 			SAN PHAM MOI
@@ -17,7 +18,12 @@
 		            <img class="card-img-top" style="height:250px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="Card image cap">
 		            <div class="card-body">
 		              <p class="card-text">${item.tenSanPham }</p>
-		              <p class="card-text">${item.donGia }</p>
+		              <c:if test="${item.soLuong == 0}">
+		              	<p class="card-text">${item.donGia}đ (Đã hết hàng)</p>
+		              </c:if>
+		              <c:if test="${item.soLuong > 0}">
+		              	<p class="card-text">${item.donGia}đ</p>
+		              </c:if>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">
 		                  <a href="/CNJava/chitietsanpham/${item.idSanPham}"><button type="button" class="btn btn-sm btn-outline-secondary">Xem chi tiet</button></a>
@@ -36,42 +42,43 @@
 				      	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 				          <span aria-hidden="true">&times;</span>
 				        </button>
-				       	
 				       	<div class="row" style="margin:20px;">
 						    <div class="col-6">
 						      <img style="width: 300px; height:300px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="..." class="img-thumbnail">
 						    </div>
 						    <div class="col-6">
-						      <form action="#" method="get">	
-						      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
-						      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
-						      <div class="form-group row" style="margin-top:20px;">
-						        <div class="col-5" style="margin-top:10px;">
-							    	<label >Số lượng:</label>
-							    </div>
-							    <div class="col-7"">
-							      <div class="input-group">
-									    <div class="input-group-prepend">
-									      	<a href="#"><button id="sub" type="button" class="btn btn-secondary">-</button></a>
-									    </div>
-									    <input type="text" style="max-width:45px;" value="10" readonly class="form-control" aria-label="Input group example" aria-describedby="btnGroupAddon">
-								    	<div class="input-group-prepend">
-								    	  	<a href="#"><button type="button" class="btn btn-secondary">+</button></a>
+							   <form action="#" method="get">	
+							      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
+							      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
+							      <div class="form-group row" style="margin-top:20px;">
+							        <div class="col-5" style="margin-top:10px;">
+								    	<label >Số lượng:</label>
+								    </div>
+								    <div class="col-7">
+								      <div class="input-group">
+										    <div class="input-group-prepend">
+										      	<button id="sub${item.idSanPham}" type="button" class="btn btn-secondary" onclick="giamSoLuong(${item.idSanPham})">-</button>
+										    </div>
+										    <input type="text" id="soluong${item.idSanPham}" style="max-width:45px;" value="1" class="form-control">
+									    	<div class="input-group-prepend">
+									    	  	<button id="add${item.idSanPham}" type="button" class="btn btn-secondary" onclick="tangSoLuong(${item.idSanPham}, ${item.soLuong})">+</button>
+										    </div>
 									    </div>
 								    </div>
-							    </div>
-							  </div>
-							  <div class="row">
-							  	<div class="col-12">
-							  		<div style="margin-left:90px;">
-							  			<button type="submit" class="btn btn-info" style="margin-top:20px;margin-bottom:20px;">Add to cart</button>
-							  		</div>
-							  	</div>
-							  </div>
-							  </form>
+								  </div>
+								  <label id="thongbao${item.idSanPham}" style="margin-top:20px;margin-bottom:20px;font-size:11px;" hidden>Số lượng sản phẩm này không còn đủ</label><br/>
+								  <div id="">
+								  </div>
+								  <div class="row">
+								  	<div class="col-12">
+								  		<div style="margin-left:90px;">
+								  			<button type="submit" class="btn btn-info" style="margin-top:20px;margin-bottom:20px;">Add to cart</button>
+								  		</div>
+								  	</div>
+								  </div>
+								</form>
 				    		</div>
-				  		</div>
-				       	
+				  		</div>	
 				      </div>
 				    </div>
 				  </div>
@@ -180,6 +187,26 @@
    	</div>
    	</div>
    	
+   	<!-- Modal -->
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	      	Không còn đủ số lượng sản phẩm này!!!
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+   	
    	<script type="text/javascript">
    	function quickDetail(id) {
 		$.ajax({
@@ -196,23 +223,30 @@
 			}
 		});
 	}
-   	/* 
-   	$(document).ready(function(){
-   		$("#btn1").click(function(){
-   			$.ajax({
-   				type: 'get',
-   				data: {
-   					format: 'json'
-   				},
-   				url: 'http://localhost:8080/CNJava/quickdetail/1',
-   				success: function(data){
-   					console.log(data);
-   				}
-   			});
-   			$('exampleModal').modal('show')
-   			console.log("hello");
-   		});
-   	}); */
+   	
+   	function tangSoLuong(id,sl){
+   		var giaTri = $('#soluong' + id).val();
+   		var soLuong = parseInt(giaTri);
+   		if(soLuong >= sl){
+   			$("#thongbao" + id).show();
+   		}else{
+   			soLuong = soLuong + 1;
+   	   		$('#soluong' + id).val(soLuong);
+   		}
+   	}
+   	
+   	function giamSoLuong(id){
+   		var giaTri = $('#soluong' + id).val();
+   		var soLuong = parseInt(giaTri);
+   		if(soLuong === 1){
+   			$('#soluong' + id).val(1);
+   		}else{
+   			soLuong = soLuong - 1;
+   	   		$('#soluong' + id).val(soLuong);
+   		}
+   		
+   	}
+   	
    	</script>
 	<jsp:include page="Footer.jsp"></jsp:include>
 	
