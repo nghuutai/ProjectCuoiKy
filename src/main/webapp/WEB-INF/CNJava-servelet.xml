@@ -11,7 +11,7 @@
 
 	<!-- Cau hinh package chua cac controller -->
 	<context:component-scan base-package="controllers" />
-	
+	<context:component-scan base-package="service.MailService"/>
 	<!-- Cau hinh Spring MVC Annotation -->
 	<context:annotation-config />
 	<mvc:annotation-driven />

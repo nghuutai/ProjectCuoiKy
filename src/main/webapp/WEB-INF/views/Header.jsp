@@ -30,7 +30,7 @@
 		      </li>
 	      </c:forEach>
 	      <li class="nav-item dropdown">
-	        <a class="nav-link dropdown-toggle" href="/project2/giohang" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	        <a class="nav-link dropdown-toggle" href="/CNJava/giohangchitiet" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	          <c:if test="${sessionScope.count>0}">Cart(${sessionScope.count})</c:if>
 	          <c:if test="${sessionScope.count==0 || sessionScope.count==null}">Cart</c:if>
 	        </a>
@@ -50,7 +50,7 @@
 		          <div class="row">
 		          	<div class="col-12" style="font-size:9px;">Tổng tiền: ${sessionScope.totalCart} vnđ</div>
 		          	<div class="col-12">
-			          	<a href="/CNJava/giohang"><span style="font-size:10px; margin-left:0px;">Chi tiết</span></a>
+			          	<a href="/CNJava/giohangchitiet"><span style="font-size:10px; margin-left:0px;">Chi tiết</span></a>
 			        </div>
 		          </div>
 	          </c:if>

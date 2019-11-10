@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:cache="http://www.springframework.org/schema/cache"
 	xmlns:context="http://www.springframework.org/schema/context"
 	xmlns:jee="http://www.springframework.org/schema/jee"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache-4.3.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd">
@@ -25,11 +27,39 @@
 		<property name="dataSource" ref="dbShopMayTinh" />
 	</bean>
 	
+	<bean name="databasehoadon" class="dao.DatabaseHoaDon">
+		<property name="dataSource" ref="dbShopMayTinh"></property>
+	</bean>
+	
+	<bean name="databasechitiethoadon" class="dao.DatabaseChiTietHoaDon">
+		<property name="dataSource" ref="dbShopMayTinh" />
+	</bean>
+	
+	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver"> <!-- maxUploadSize=20MB -->
+		<property name="maxUploadSize" value="20971520"/>
+	</bean>
+	
+	
 	<bean name="dbShopMayTinh" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 	    <property name="url" value="jdbc:mysql://localhost:3306/shopmaytinh" />
 	    <property name="username" value="root" />
 	    <property name="password" value="12345678" />
 	</bean>	
-
+	
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="587"/>
+	    <property name="username" value="nhtai124356@gmail.com" />
+	    <property name="password" value="huutaibs123" />
+	    <property name="defaultEncoding" value="utf-8"/>
+	    <property name="javaMailProperties">
+	      <props>
+	        <prop key="mail.smtp.auth">true</prop>
+	        <prop key="mail.smtp.port">587</prop>
+	        <prop key="mail.smtp.starttls.enable">true</prop>
+	        <prop key="mail.debug">true</prop>
+	      </props>
+	    </property>
+	</bean>
 </beans>

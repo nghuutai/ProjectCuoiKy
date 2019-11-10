@@ -177,4 +177,16 @@ private JdbcTemplate jdbcTemplate;
 		}, id);
 		return sp;
 	}
+	
+	public int getSoLuong(int id) {
+		String sql = "SELECT soLuong FROM shopmaytinh.SanPham where idSanPham=?;";
+		int result =jdbcTemplate.queryForObject(sql, new Object[]{id}, Integer.class);
+		return result;
+	}
+	
+	public int suaSoLuong(int sl, int id) {
+		String sql = "UPDATE `shopmaytinh`.`SanPham` SET `soLuong` = `soLuong` - ? WHERE (`idSanPham` = ?);";
+		int result = jdbcTemplate.update(sql, sl, id);
+		return result;
+	}
 }

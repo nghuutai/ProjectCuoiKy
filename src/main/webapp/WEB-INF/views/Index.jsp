@@ -47,7 +47,7 @@
 						      <img style="width: 300px; height:300px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="..." class="img-thumbnail">
 						    </div>
 						    <div class="col-6">
-							   <form action="#" method="get">	
+							   <form action="" method="get">	
 							      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
 							      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
 							      <div class="form-group row" style="margin-top:20px;">
@@ -59,7 +59,7 @@
 										    <div class="input-group-prepend">
 										      	<button id="sub${item.idSanPham}" type="button" class="btn btn-secondary" onclick="giamSoLuong(${item.idSanPham})">-</button>
 										    </div>
-										    <input type="text" id="soluong${item.idSanPham}" style="max-width:45px;" value="1" class="form-control">
+										    <input type="text" name="soLuong" id="soluong${item.idSanPham}" style="max-width:45px;" value="1" class="form-control">
 									    	<div class="input-group-prepend">
 									    	  	<button id="add${item.idSanPham}" type="button" class="btn btn-secondary" onclick="tangSoLuong(${item.idSanPham}, ${item.soLuong})">+</button>
 										    </div>
@@ -223,6 +223,7 @@
 			}
 		});
 	}
+   	
    	
    	function tangSoLuong(id,sl){
    		var giaTri = $('#soluong' + id).val();
