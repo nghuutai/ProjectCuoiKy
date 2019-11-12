@@ -1,6 +1,7 @@
 package controllers;
 
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpSession;
 
@@ -44,6 +45,9 @@ public class ChiTietSanPhamController {
 			}
 		}
 		
+		List<SanPham> sanPhamLienQuan = db.getListSanPhamLienQuan(id, sp.getIdNhaSanXuat(), sp.getIdLoaiMay(), 6);
+		
+		
 		CauHinhLaptop cauHinhLaptop;
 		CauHinhPC cauHinhPC;
 		if(sp.getIdLoaiMay() == 1) {
@@ -56,6 +60,7 @@ public class ChiTietSanPhamController {
 		
 		model.addAttribute("SanPham", sp);
 		model.addAttribute("SessionCart", cart);
+		model.addAttribute("SanPhamLienQuan", sanPhamLienQuan);
 		return "ChiTietSanPham";
 	}
 	
@@ -67,6 +72,7 @@ public class ChiTietSanPhamController {
         }
 		
 		SanPham sp = db.getSanPhamByID(id);
+		List<SanPham> sanPhamLienQuan = db.getListSanPhamLienQuan(id, sp.getIdNhaSanXuat(), sp.getIdLoaiMay(), 6);
 		Cart cart = new Cart();
 		if(sp != null) {
 			if(cartItems.containsKey(id)) {
@@ -94,6 +100,7 @@ public class ChiTietSanPhamController {
 		session.setAttribute("count", totalSL);
 		model.addAttribute("SanPham", sp);
 		model.addAttribute("SessionCart", cart);
+		model.addAttribute("SanPhamLienQuan", sanPhamLienQuan);
 		return "ChiTietSanPham";
 	}
 }

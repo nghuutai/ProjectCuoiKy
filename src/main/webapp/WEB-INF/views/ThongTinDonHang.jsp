@@ -59,3 +59,4 @@
 			<a href="/CNJava/dathang"><button type="submit" class="btn btn-danger">Đặt mua</button></a>
 		</div>
 	</div>
+	<jsp:include page="Footer.jsp"></jsp:include>

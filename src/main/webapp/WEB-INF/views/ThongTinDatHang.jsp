@@ -30,3 +30,5 @@
 		</div>
 	  </div>
 	</form>
+	<jsp:include page="Footer.jsp"></jsp:include>
+	
