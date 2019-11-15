@@ -27,10 +27,11 @@ import entity.SanPham;
 @Controller
 public class IndexController {
 	
+	ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
+	DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+	
 	@RequestMapping("/")
 	public String index(ModelMap model) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
 		List<SanPham> listSanPhamMoi = db.getListSanPhamMoi();
 		model.addAttribute("ListSanPhamMoi", listSanPhamMoi);
 		return "Index";
@@ -38,8 +39,6 @@ public class IndexController {
 	
 	@RequestMapping("/quickdetail/{id}")
 	public @ResponseBody String searchPerson(@PathVariable int id) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
 		SanPham sanPham = db.getSanPhamByID(id);
 
 		ObjectMapper mapper = new ObjectMapper();
@@ -52,6 +51,13 @@ public class IndexController {
 		System.out.println(ajaxResponse);
 		return ajaxResponse;
 	}
-
 	
+	@RequestMapping("/timkiem")
+	public String timKiemSanPham(ModelMap model, @RequestParam String timKiem) {
+		List<SanPham> listSPTK = db.timKiemSanPham(timKiem);
+		
+		model.addAttribute("TimKiem", timKiem);
+		model.addAttribute("KetQua", listSPTK);
+		return "TimKiem";
+	}
 }

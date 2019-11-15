@@ -294,6 +294,26 @@ private JdbcTemplate jdbcTemplate;
 		return listSanPham;
 	}
 	
+	public List<SanPham> timKiemSanPham(String info) {
+		String sql = "SELECT * FROM shopmaytinh.SanPham where TenSanPham like '%" + info + "%';";
+		List<SanPham> listSanPham = jdbcTemplate.query(sql, new RowMapper<SanPham>() {
+
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPham;
+	}
+	
 	public SanPham getSanPhamByID(int id) {
 		String sql = "SELECT * FROM SanPham where IdSanPham = ?;";
 		SanPham sp = jdbcTemplate.queryForObject(sql, new RowMapper<SanPham>() {

@@ -182,14 +182,14 @@
 						}
 				%>
 		        <div class="col-md-2">
-		          <div class="card mb-4 box-shadow">
+		          <div class="card mb-4 box-shadow" style="height:350px;">
 		            <img class="card-img-top" src="<c:url value='<%=path %>' />" alt="Card image cap">
 		            <div class="card-body">
 		              <p class="card-text"><%=sanPham.getTenSanPham() %></p>
 		              <p class="card-text"><%=sanPham.getDonGia() %>đ</p>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">
-		                  <button type="button" class="btn btn-sm btn-outline-secondary">Xem chi tiết</button>
+		                  <a href="/CNJava/chitietsanpham/<%=sanPham.getIdSanPham() %>"><button type="button" class="btn btn-sm btn-outline-secondary">Xem chi tiết</button></a>
 		                  <button type="button" class="btn btn-sm btn-outline-secondary" onclick="soSanh(<%=sanPham.getIdSanPham() %>)">So sánh</button>
 		                </div>
 		              </div>
