@@ -106,22 +106,31 @@
 	   	</div>
    	</div>
    	
+   	<%
+		int trang = (Integer)request.getAttribute("Trang");
+	%>
+   	<c:if test="${Loai==1}">
    	<div class="row">
    		<div class="col-12">
 		   	<div class="pagination-0" style="margin-top:20px;float:right;">
 				<nav aria-label="Page navigation example">
 				  <ul class="pagination">
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Previous">
+				    <li class="page-item <%=trang==0 ? "disabled" : ""%>">
+				      <a class="page-link" href="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/<%=trang %>" aria-label="Previous">
 				        <span aria-hidden="true">&laquo;</span>
 				        <span class="sr-only">Previous</span>
 				      </a>
 				    </li>
-			    	<li class="page-item"><a class="page-link" href="#" >1</a></li>
-			    	<li class="page-item"><a class="page-link" href="#" >2</a></li>
-			    	<li class="page-item"><a class="page-link" href="#" >3</a></li>
-				    <li class="page-item">
-				      <a class="page-link" href="#" aria-label="Next">
+			    	<%
+				    	int soTrang = (Integer)request.getAttribute("SoTrang");
+				    	for(int i = 0; i < soTrang; i++){
+			    	%>
+			    		<li class="page-item <%=i==trang ? "active" : "" %>"><a class="page-link" href="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/<%=i+1 %>" ><%=i+1 %></a></li>
+				    <%		
+				    	}
+				    %>			    	
+				    <li class="page-item <%=trang+1==soTrang ? "disabled" : ""%>">
+				      <a class="page-link" href="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/<%=trang+2 %>" aria-label="Next">
 				        <span aria-hidden="true">&raquo;</span>
 				        <span class="sr-only">Next</span>
 				      </a>
@@ -131,7 +140,39 @@
 			</div>
 		</div>
 	</div>
-    
+	</c:if>
+    <c:if test="${Loai==2}">
+   	<div class="row">
+   		<div class="col-12">
+		   	<div class="pagination-0" style="margin-top:20px;float:right;">
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li class="page-item <%=trang==0 ? "disabled" : ""%>">
+				      <a class="page-link" href="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/${Gia}/<%=trang %>" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				        <span class="sr-only">Previous</span>
+				      </a>
+				    </li>
+			    	<%
+				    	int soTrang = (Integer)request.getAttribute("SoTrang");
+				    	for(int i = 0; i < soTrang; i++){
+			    	%>
+			    		<li class="page-item <%=i==trang ? "active" : "" %>"><a class="page-link" href="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/${Gia}/<%=i+1 %>" ><%=i+1 %></a></li>
+				    <%		
+				    	}
+				    %>			    	
+				    <li class="page-item <%=trang+1==soTrang ? "disabled" : ""%>">
+				      <a class="page-link" href="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/${Gia}/<%=trang+2 %>" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				        <span class="sr-only">Next</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+	</c:if>
     <script type="text/javascript">
    	function quickDetail(id) {
 		$.ajax({

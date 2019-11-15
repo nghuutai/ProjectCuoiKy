@@ -29,7 +29,7 @@
 				GIỎ HÀNG TRỐNG
 			</div>
 			<div class="col-12">
-				<a href="/project2">Bắt đầu mua hàng</a>
+				<a href="/CNJava"">Bắt đầu mua hàng</a>
 			</div>
 		</div>
 	</c:if>

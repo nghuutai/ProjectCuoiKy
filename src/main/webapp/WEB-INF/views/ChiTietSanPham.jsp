@@ -54,13 +54,13 @@
 				    	</div>
 				    </div>
 				  </div>	
-				  <%-- <c:if test="${SessionCart.soLuong >= SanPham.soLuong}">
+				  <c:if test="${SessionCart.soLuong >= SanPham.soLuong}">
 				  	<button type="submit" class="btn btn-info" disabled style="margin-top:20px;margin-bottom:20px;margin-left:200px;">Add to cart</button>
 				  </c:if>
 				  <c:if test="${SessionCart.soLuong < SanPham.soLuong}">
 				  	<button type="submit" class="btn btn-info" style="margin-top:20px;margin-bottom:20px;margin-left:200px;">Add to cart</button>
-				  </c:if> --%>		  
-				  <button type="submit" class="btn btn-info" style="margin-top:20px;margin-bottom:20px;margin-left:200px;">Add to cart</button>
+				  </c:if>		  
+				  <!-- <button type="submit" class="btn btn-info" style="margin-top:20px;margin-bottom:20px;margin-left:200px;">Add to cart</button> -->
 			  </form>
     		</div>
   		</div>

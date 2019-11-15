@@ -63,9 +63,49 @@ private JdbcTemplate jdbcTemplate;
 		return listSanPhamMoi;
 	}
 	
+	public List<SanPham> getListSanPhamTheoLoaiLimit(int id, int trang, int soPhanTu) {
+		String sql = "SELECT * FROM shopmaytinh.SanPham where IdLoaiMay=? limit ?,?;";
+		List<SanPham> listSanPhamMoi = jdbcTemplate.query(sql, new Object[]{id, trang, soPhanTu}, new RowMapper<SanPham>() {
+
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPhamMoi;
+	}
+	
 	public List<SanPham> getListSanPhamTheoNhaSanXuat(int idnsx, int idlm) {
 		String sql = "SELECT * FROM shopmaytinh.SanPham where IdNhaSanXuat=? and IdLoaiMay=?;";
 		List<SanPham> listSanPhamMoi = jdbcTemplate.query(sql, new Object[]{idnsx, idlm}, new RowMapper<SanPham>() {
+
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPhamMoi;
+	}
+	
+	public List<SanPham> getListSanPhamTheoNhaSanXuatLimit(int idnsx, int idlm, int trang, int soPhanTu) {
+		String sql = "SELECT * FROM shopmaytinh.SanPham where IdNhaSanXuat=? and IdLoaiMay=? limit ?,?;";
+		List<SanPham> listSanPhamMoi = jdbcTemplate.query(sql, new Object[]{idnsx, idlm, trang, soPhanTu}, new RowMapper<SanPham>() {
 
 			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
 				SanPham sanPham = new SanPham();
@@ -102,9 +142,47 @@ private JdbcTemplate jdbcTemplate;
 		return listSanPham;
 	}
 	
+	public List<SanPham> getListSanPhamTheoGiaLimit(int from, int to, int loaiMay, int trang, int soPhanTu){
+		String sql = "SELECT * FROM shopmaytinh.SanPham where DonGia >= ? and DonGia < ? and IdLoaiMay = ? limit ?,?;";
+		List<SanPham> listSanPham = jdbcTemplate.query(sql, new Object[] {from, to, loaiMay, trang, soPhanTu}, new RowMapper<SanPham>() {
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPham;
+	}
+	
 	public List<SanPham> getListSanPhamTheoGia(int from, int loaiMay){
 		String sql = "SELECT * FROM shopmaytinh.SanPham where DonGia >= ? and IdLoaiMay = ?;";
 		List<SanPham> listSanPham = jdbcTemplate.query(sql, new Object[] {from, loaiMay}, new RowMapper<SanPham>() {
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPham;
+	}
+	
+	public List<SanPham> getListSanPhamTheoGiaLimit(int from, int loaiMay, int trang, int soPhanTu){
+		String sql = "SELECT * FROM shopmaytinh.SanPham where DonGia >= ? and IdLoaiMay = ? limit ?,?;";
+		List<SanPham> listSanPham = jdbcTemplate.query(sql, new Object[] {from, loaiMay, trang, soPhanTu}, new RowMapper<SanPham>() {
 			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
 				SanPham sanPham = new SanPham();
 				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
@@ -140,9 +218,47 @@ private JdbcTemplate jdbcTemplate;
 		return listSanPham;
 	}
 	
+	public List<SanPham> getListSanPhamTheoGiaVaNhaSanXuatLimit(int from, int to, int loaiMay, int nhaSanXuat,int trang, int soPhanTu){
+		String sql = "SELECT * FROM shopmaytinh.SanPham where DonGia >= ? and DonGia < ? and IdLoaiMay = ? and IdNhaSanXuat = ? limit ?,?;";
+		List<SanPham> listSanPham = jdbcTemplate.query(sql, new Object[] {from, to, loaiMay, nhaSanXuat, trang, soPhanTu}, new RowMapper<SanPham>() {
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPham;
+	}
+	
 	public List<SanPham> getListSanPhamTheoGiaVaNhaSanXuat(int from, int loaiMay, int nhaSanXuat){
 		String sql = "SELECT * FROM shopmaytinh.SanPham where DonGia >= ? and IdLoaiMay = ? and IdNhaSanXuat = ?;";
 		List<SanPham> listSanPham = jdbcTemplate.query(sql, new Object[] {from, loaiMay, nhaSanXuat}, new RowMapper<SanPham>() {
+			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
+				SanPham sanPham = new SanPham();
+				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
+				sanPham.setTenSanPham(rs.getString("TenSanPham"));
+				sanPham.setDonGia(rs.getInt("DonGia"));
+				sanPham.setSoLuong(rs.getInt("SoLuong"));
+				sanPham.setHinhAnh(rs.getString("HinhAnh"));
+				sanPham.setMoTa(rs.getString("MoTa"));
+				sanPham.setIdNhaSanXuat(rs.getInt("IdNhaSanXuat"));
+				sanPham.setIdLoaiMay(rs.getInt("IdLoaiMay"));
+				return sanPham;
+			}
+		});
+		return listSanPham;
+	}
+	
+	public List<SanPham> getListSanPhamTheoGiaVaNhaSanXuatLimit(int from, int loaiMay, int nhaSanXuat,int trang, int soPhanTu){
+		String sql = "SELECT * FROM shopmaytinh.SanPham where DonGia >= ? and IdLoaiMay = ? and IdNhaSanXuat = ? limit ?,?;";
+		List<SanPham> listSanPham = jdbcTemplate.query(sql, new Object[] {from, loaiMay, nhaSanXuat, trang, soPhanTu}, new RowMapper<SanPham>() {
 			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
 				SanPham sanPham = new SanPham();
 				sanPham.setIdSanPham(rs.getInt("IdSanPham"));
