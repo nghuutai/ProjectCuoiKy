@@ -182,10 +182,10 @@
 						}
 				%>
 		        <div class="col-md-2">
-		          <div class="card mb-4 box-shadow" style="height:350px;">
-		            <img class="card-img-top" src="<c:url value='<%=path %>' />" alt="Card image cap">
+		          <div class="card mb-4 box-shadow" style="height:380px;">
+		            <img class="card-img-top"style="height:130px;" src="<c:url value='<%=path %>' />" alt="Card image cap">
 		            <div class="card-body">
-		              <p class="card-text"><%=sanPham.getTenSanPham() %></p>
+		              <p class="card-text" style="height:90px;"><%=sanPham.getTenSanPham() %></p>
 		              <p class="card-text"><%=sanPham.getDonGia() %>đ</p>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">

@@ -17,7 +17,7 @@
 		          <div class="card mb-4 box-shadow">
 		            <img class="card-img-top" style="height:250px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="Card image cap">
 		            <div class="card-body">
-		              <p class="card-text">${item.tenSanPham }</p>
+		              <p class="card-text" style="height:35px;">${item.tenSanPham}</p>
 		              <c:if test="${item.soLuong == 0}">
 		              	<p class="card-text">${item.donGia}đ (Đã hết hàng)</p>
 		              </c:if>

@@ -15,16 +15,48 @@
     </div>
     
     <div class="row" style="margin-top:20px;margin-bottom:20px;">
-    	<div class="col-2">
-    		<div style="margin-top:10px">Chon muc gia: </div>
-    	</div>
-    	<div class="col-10">
-    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/1-5000000"><button type="button" class="btn btn-outline-danger">Dưới 5 triệu</button></a>
-		 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/5000000-10000000"><button type="button" class="btn btn-outline-danger">5 - 10 triệu</button></a>
-		 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/10000000-15000000"><button type="button" class="btn btn-outline-danger">10 - 15 triệu</button></a>
-		 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/15000000-20000000"><button type="button" class="btn btn-outline-danger">15 - 20 triệu</button></a>
-		 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/20000000-"><button type="button" class="btn btn-outline-danger">Trên 20 triệu</button></a>
-    	</div>
+    	<c:if test="${Gia==null}">
+	    	<div class="col-2">
+	    		<div style="margin-top:10px">Chọn mức giá: </div>
+	    	</div>
+	    	<div class="col-10">
+	    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/1-5000000"><button type="button" class="btn btn-outline-danger">Dưới 5 triệu</button></a>
+			 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/5000000-10000000"><button type="button" class="btn btn-outline-danger">5 - 10 triệu</button></a>
+			 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/10000000-15000000"><button type="button" class="btn btn-outline-danger">10 - 15 triệu</button></a>
+			 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/15000000-20000000"><button type="button" class="btn btn-outline-danger">15 - 20 triệu</button></a>
+			 	<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}/20000000-"><button type="button" class="btn btn-outline-danger">Trên 20 triệu</button></a>
+	    	</div>
+    	</c:if>
+    	<c:if test="${Gia == '1-5000000'}">
+	    	<div class="col-10">
+	    		<button type="button" class="btn btn-danger">Dưới 5 triệu</button>
+	    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}"><button type="button" class="btn btn-secondary">X</button></a>
+	    	</div>
+    	</c:if>
+    	<c:if test="${Gia == '5000000-10000000'}">
+	    	<div class="col-10">
+	    		<button type="button" class="btn btn-danger">5 - 10 triệu</button>
+	    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}"><button type="button" class="btn btn-secondary">X</button></a>
+	    	</div>
+    	</c:if>
+    	<c:if test="${Gia == '10000000-15000000'}">
+	    	<div class="col-10">
+	    		<button type="button" class="btn btn-danger">10 - 15 triệu</button>
+	    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}"><button type="button" class="btn btn-secondary">X</button></a>
+	    	</div>
+    	</c:if>
+    	<c:if test="${Gia == '15000000-20000000'}">
+	    	<div class="col-10">
+	    		<button type="button" class="btn btn-danger">15 - 20 triệu</button>
+	    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}"><button type="button" class="btn btn-secondary">X</button></a>
+	    	</div>
+    	</c:if>
+    	<c:if test="${Gia == '20000000-'}">
+	    	<div class="col-10">
+	    		<button type="button" class="btn btn-danger">Trên 20 triệu</button>
+	    		<a href="/CNJava/chitietloaisanpham/${LoaiMay.idLoaiMay}"><button type="button" class="btn btn-secondary">X</button></a>
+	    	</div>
+    	</c:if>
     </div>
     
     <div class="album py-5 bg-light">
@@ -39,7 +71,7 @@
 		          <div class="card mb-4 box-shadow">
 		            <img class="card-img-top" style="height:250px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="Card image cap">
 		            <div class="card-body">
-		              <p class="card-text">${item.tenSanPham}</p>
+		              <p class="card-text" style="height:35px;">${item.tenSanPham}</p>
 		              <c:if test="${item.soLuong == 0}">
 		              	<p class="card-text">${item.donGia}đ (Đã hết hàng)</p>
 		              </c:if>
