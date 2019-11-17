@@ -3,6 +3,13 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 	<jsp:include page="Header.jsp"></jsp:include>
 	
+	<div class="row">
+		<div class="col-12">
+			<a href="/CNJava/" style="color: red">Trang chủ</a> >
+			<a>Kết quả tìm kiếm cho: ${TimKiem}</a>
+		</div>
+	</div>
+	
 	<div class="row space">
 		<row class="col-12" style="margin-left:20px;margin-top:20px;margin-bottom:20px;">
 			<h4>Kết quả tìm kiếm cho : ${TimKiem}</h3>
@@ -11,6 +18,11 @@
 	
 	<div class="album py-5 bg-light">
 		<div class="row">
+			<c:if test="${KetQua.size() == 0}">
+				<div class="col-12" style="text-align:center;">
+				  ${ThongBao}
+				</div>
+			</c:if>
 			<c:forEach var="item" items="${KetQua}">
 		        <div class="col-md-4">
 		          <div class="card mb-4 box-shadow">
@@ -46,7 +58,7 @@
 						      <img style="width: 300px; height:300px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="..." class="img-thumbnail">
 						    </div>
 						    <div class="col-6">
-							   <form action="" method="get">	
+							   <form action="/CNJava/timkiem/addquickview/${item.idSanPham}/${TimKiem}" method="post">	
 							      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
 							      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
 							      <div class="form-group row" style="margin-top:20px;">

@@ -3,6 +3,13 @@
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <jsp:include page="Header.jsp"></jsp:include>
     
+  	<div class="row">
+  		<div class="col-12">
+  			<a href="/CNJava/" style="color: red">Trang chủ</a>
+  			<a> > ${LoaiMay.tenLoaiMay}</a>
+  		</div>
+  	</div>
+    
     <div class="row" style="margin-top:20px;margin-bottom:20px;">
     	<div class="col-1">
     		<div style="margin-top:10px">${LoaiMay.tenLoaiMay}</div>
@@ -62,9 +69,9 @@
     <div class="album py-5 bg-light">
 		<div class="row">
 			<c:if test="${ListSanPhamTheoLoai.size() == 0}">
-			<div class="col-12" style="text-align:center;">
-			  ${ThongBao}
-			</div>
+				<div class="col-12" style="text-align:center;">
+				  ${ThongBao}
+				</div>
 			</c:if>
 			<c:forEach var="item" items="${ListSanPhamTheoLoai}">
 		        <div class="col-md-4">
@@ -101,7 +108,12 @@
 						      <img style="width: 300px; height:300px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="..." class="img-thumbnail">
 						    </div>
 						    <div class="col-6">
-						      <form action="#" method="get">	
+						      <c:if test="${Loai==1}">
+						      <form action="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/${Trang+1}/addquickview/${item.idSanPham}" method="post">	
+						      </c:if>
+						      <c:if test="${Loai==2}">
+						      <form action="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/${Gia}/${Trang+1}/addquickview/${item.idSanPham}" method="post">	
+						      </c:if>	
 						      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
 						      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
 						      <div class="form-group row" style="margin-top:20px;">
@@ -113,7 +125,7 @@
 									    <div class="input-group-prepend">
 									      	<button id="sub${item.idSanPham}" type="button" class="btn btn-secondary" onclick="giamSoLuong(${item.idSanPham})">-</button>
 									    </div>
-									    <input type="text" id="soluong${item.idSanPham}" style="max-width:45px;" value="1" class="form-control">
+									    <input type="text" id="soluong${item.idSanPham}" name="soLuong" style="max-width:45px;" value="1" class="form-control">
 								    	<div class="input-group-prepend">
 								    	  	<button id="add" type="button" class="btn btn-secondary" onclick="tangSoLuong(${item.idSanPham})">+</button>
 									    </div>

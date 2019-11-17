@@ -14,7 +14,7 @@
 	
 	<div class="row" style="margin-left:0px;margin-right:0px;">
 		<div class="col-12" style="text-align:center;background-color: green;">
-			ABC COMPUTER HO TRO GIAO HANGF VAF THU TIEN TAN NOI TREN TOAN QUOC
+			ABC COMPUTER HỖ TRỢ GIAO HÀNG VÀ THU TIỀN TẬN NƠI TRÊN TOÀN QUỐC
 		</div>
 	</div>
 	

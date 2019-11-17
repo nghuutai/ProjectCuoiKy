@@ -7,7 +7,7 @@
 	
 	<div class="row">
 		<div class="col-12" style="text-align:center;margin-top:20px;margin-bottom:20px;">
-			SAN PHAM MOI
+			SẢN PHẨM MỚI
 		</div>
 	</div>
 	<div class="album py-5 bg-light">
@@ -47,7 +47,7 @@
 						      <img style="width: 300px; height:300px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="..." class="img-thumbnail">
 						    </div>
 						    <div class="col-6">
-							   <form action="" method="get">	
+							   <form action="/CNJava/addquickview/${item.idSanPham}" method="post">	
 							      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
 							      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
 							      <div class="form-group row" style="margin-top:20px;">
@@ -89,7 +89,7 @@
    	
    	<div class="row">
 		<div class="col-12" style="text-align:center;margin-top:20px;margin-bottom:20px;">
-			SAN PHAM BAN CHAY
+			SẢN PHẨM BÁN CHẠY
 		</div>
 	</div>
 	<div class="album py-5 bg-light">
