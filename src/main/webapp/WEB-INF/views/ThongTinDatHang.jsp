@@ -12,13 +12,16 @@
 	  <div class="form-group">
 	    <label for="exampleFormControlInput1">Tên khách hàng</label>
 	    <input type="text" name="tenKhachHang" value="${sessionScope.hoaDon.tenKhachHang}" class="form-control" id="exampleFormControlInput1" placeholder="Nhập họ tên" required>
+	  	<!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
 	  </div><div class="form-group">
 	    <label for="exampleFormControlInput1">Email</label>
-	    <input type="text" name="email"value="${sessionScope.hoaDon.email}" class="form-control" id="exampleFormControlInput1" placeholder="Nhập địa chỉ email" required>
+	    <input id="txtmail" type="text" name="email"value="${sessionScope.hoaDon.email}" onchange="check()" class="form-control" id="exampleFormControlInput1" placeholder="Nhập địa chỉ email" required>
+	  	<small id="infmail" style="display:none;" class="form-text text-muted"><font color="red">Email không hợp lệ</font></small>
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleFormControlInput1">Số điện thoại</label>
-	    <input type="text" name="soDienThoai" value="${sessionScope.hoaDon.soDienThoai}" class="form-control" id="exampleFormControlInput1" placeholder="Nhập số điện thoại" required>
+	    <input id="txtPhone" type="text" name="soDienThoai" onchange="check()" value="${sessionScope.hoaDon.soDienThoai}" class="form-control" id="exampleFormControlInput1" placeholder="Nhập số điện thoại" required>
+	  	<small id="infPhone" style="display:none;" class="form-text text-muted"><font color="red">Số điện thoại không hợp lệ</font></small>
 	  </div>
 	  <div class="form-group">
 	    <label for="exampleFormControlInput1">Địa chỉ</label>
@@ -26,9 +29,63 @@
 	  </div>
 	  <div class="row">
 		<div class="col-12" style="text-align:center;margin-top:20px;">
-			<button type="submit" class="btn btn-primary">Giao đến địa chỉ này</button>
+			<button id="btnGiao" type="submit" class="btn btn-primary">Giao đến địa chỉ này</button>
 		</div>
 	  </div>
 	</form>
+	<script>
+		function check(){
+			var resultEmail;
+			var resultPhone;
+			var mail = document.getElementById("txtmail").value;
+			var phone = document.getElementById("txtPhone").value;
+			var attMail = document.getElementById("infmail");
+			var attPhone = document.getElementById("infPhone");
+			if(mail !== ""){
+				var reEmail = /^[a-zA-Z0-9]+[.]{0,1}[a-zA-Z0-9]+[@][a-z]+([.][a-z]{2,})+$/
+	            var testEmail = reEmail.test(mail);
+				if(testEmail){
+					console.log("OK");
+					attMail.style.setProperty("display", "none");
+					resultEmail = true
+				}else{
+					console.log("not ok");
+					attMail.style.setProperty("display", "block");
+					resultEmail = false;
+				}
+			}else{
+				attMail.style.setProperty("display", "none");
+			}
+			if(phone !== ""){
+				console.log(phone);
+				var rePhone = /^[0][0-9]{1,10}$/
+	            var testPhone = rePhone.test(phone)
+				if(testPhone){
+					if(phone.length === 10 || phone.length === 11){
+						console.log("OK");
+						attPhone.style.setProperty("display", "none");
+						resultPhone = true;
+					}else{
+						console.log("not ok");
+						attPhone.style.setProperty("display", "block");
+						resultPhone = false;
+					}
+				}else{
+					console.log("not ok");
+					attPhone.style.setProperty("display", "block");
+					resultPhone = false;
+				}
+			}else{
+				attPhone.style.setProperty("display", "none");
+			}
+			
+			
+			if(resultEmail === true && resultPhone === true){
+				document.getElementById("btnGiao").disabled = false;
+			}else{
+				document.getElementById("btnGiao").disabled = true;
+			}
+		}
+	</script>
 	<jsp:include page="Footer.jsp"></jsp:include>
 	
