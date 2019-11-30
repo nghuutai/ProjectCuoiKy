@@ -28,16 +28,22 @@
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Nhà sản xuất</label>
 					    <select class="form-control" name="idNhaSanXuat" id="exampleFormControlSelect1">
-					      <option value="1">DELL </option>
+					      <c:forEach var="item" items="${ListNhaSanXuat}">
+					      	<option value="${item.idNhaSanXuat}">${item.tenNhaSanXuat}</option>
+					      </c:forEach>
+					      <!-- <option value="1">DELL </option>
 					      <option value="2">HP</option>
-					      <option value="3">ASUS</option>
+					      <option value="3">ASUS</option> -->
 					    </select>
 					  </div>
 					  <div class="form-group">
 					    <label for="exampleFormControlSelect1">Loại máy</label>
 					    <select class="form-control" name="idLoaiMay" id="exampleFormControlSelect1">
-					      <option value="1">Laptop</option>
-					      <option value="2">PC</option>
+					      <c:forEach var="item" items="${ListLoaiMay}">
+					      	<option value="${item.idLoaiMay}">${item.tenLoaiMay}</option>
+					      </c:forEach>
+					      <!-- <option value="1">Laptop</option>
+					      <option value="2">PC</option> -->
 					    </select>
 					  </div>
 					  <div class="form-group">
@@ -81,9 +87,9 @@
 						      	<div class="btn-group">
 						      		<a onclick="return confirmDelete('Bấm OK để xoá sản phẩm')" href="/CNJava/admin/${p.idSanPham}"><button style="width:80px;" type="button" class="btn btn-danger">Delete</button></a>
 						      	</div>
-						      	<div class="btn-group">
+						      	<%-- <div class="btn-group">
 						      		<a href="/CNJava/admin/${p.idSanPham}"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
-						      	</div>
+						      	</div> --%>
 						      	<script>
 							        function confirmDelete(msg){
 							        	if(window.confirm(msg) == true){

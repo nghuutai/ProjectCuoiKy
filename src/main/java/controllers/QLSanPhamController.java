@@ -16,7 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.DatabaseLoaiMay;
+import dao.DatabaseNhaSanXuat;
 import dao.DatabaseSanPham;
+import entity.LoaiMay;
+import entity.NhaSanXuat;
 import entity.SanPham;
 
 @Controller
@@ -24,13 +28,18 @@ public class QLSanPhamController {
 
 	@Autowired
 	ServletContext context;
-	
 	@GetMapping("/admin")
 	public String trangQuanLySanPham(ModelMap modelMap) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
 		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
+		List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
+		List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
 		List<SanPham> listSP = db.getListSanPham();
 		modelMap.addAttribute("listSP", listSP);
+		modelMap.addAttribute("ListLoaiMay", listLoaiMay);
+		modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
 		return "QuanLySanPham";
 	}
 	
@@ -52,6 +61,8 @@ public class QLSanPhamController {
 				String hinhAnh = image.getOriginalFilename();
 				ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
 				DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+				DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+				DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 				SanPham sp = new SanPham();
 				sp.setTenSanPham(tenSanPham);
 				sp.setDonGia(donGia);
@@ -62,7 +73,11 @@ public class QLSanPhamController {
 				sp.setIdLoaiMay(idLoaiMay);
 				db.addSanPham(sp);
 				List<SanPham> listSP = db.getListSanPham();
+				List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
+				List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
 				modelMap.addAttribute("listSP", listSP);
+				modelMap.addAttribute("ListLoaiMay", listLoaiMay);
+				modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
 			}catch(Exception ex) {
 				modelMap.addAttribute("message", "Loi luu file!");
 			}
@@ -74,9 +89,15 @@ public class QLSanPhamController {
 	public String xoaSanPham(@PathVariable int id, ModelMap modelMap) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
 		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 		db.xoaSanPham(id);
 		List<SanPham> listSP = db.getListSanPham();
+		List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
+		List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
 		modelMap.addAttribute("listSP", listSP);
+		modelMap.addAttribute("ListLoaiMay", listLoaiMay);
+		modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
 		return "QuanLySanPham";
 	}
 }

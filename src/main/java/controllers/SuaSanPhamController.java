@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.ServletContext;
 
@@ -15,7 +16,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.DatabaseLoaiMay;
+import dao.DatabaseNhaSanXuat;
 import dao.DatabaseSanPham;
+import entity.LoaiMay;
+import entity.NhaSanXuat;
 import entity.SanPham;
 
 @Controller
@@ -28,18 +33,25 @@ public class SuaSanPhamController {
 	public String trangSuaSanPham(@PathVariable int id, ModelMap modelMap) {
 		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
 		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 		SanPham sp = db.getSanPhamByID(id);
+		List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
+		List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
 		modelMap.addAttribute("sanPham",sp);
 		modelMap.addAttribute("result", 0);
+		modelMap.addAttribute("ListLoaiMay", listLoaiMay);
+		modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
 		return "SuaSanPham";
 	}
 	
 	@PostMapping("suasanpham/{id}")
 	public String suaSanPham(@RequestParam int idSanPham, @RequestParam String tenSanPham, @RequestParam int donGia,@RequestParam String moTa,@RequestParam int idNhaSanXuat,@RequestParam int idLoaiMay, @RequestParam int soLuong, @RequestParam("hinhAnh") MultipartFile image, ModelMap modelMap) {
-		
+		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
+		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 		if(image.isEmpty()) {
-			ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-			DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
 			SanPham sp = new SanPham();
 			sp.setIdSanPham(idSanPham);
 			sp.setTenSanPham(tenSanPham);
@@ -49,10 +61,12 @@ public class SuaSanPhamController {
 			sp.setIdNhaSanXuat(idNhaSanXuat);
 			sp.setIdLoaiMay(idLoaiMay);
 			int kq = db.suaSanPhamNoImg(sp);
-			System.out.println(idNhaSanXuat);
-			System.out.println(idLoaiMay);
+			List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
+			List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
 			modelMap.addAttribute("sanPham",sp);
 			modelMap.addAttribute("result", kq);
+			modelMap.addAttribute("ListLoaiMay", listLoaiMay);
+			modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
 		}else {
 			try {
 				String path1 = "/Users/nguyenhuutai/Documents/ProjectSpring/project2/src/main/webapp/recources/imagess/" + image.getOriginalFilename();
@@ -63,9 +77,6 @@ public class SuaSanPhamController {
 					fileDir.mkdirs();
 				}
 				image.transferTo(new File(path1));
-				
-				ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-				DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
 				String hinhAnh = image.getOriginalFilename();
 				SanPham sp = new SanPham();
 				sp.setIdSanPham(idSanPham);
@@ -76,11 +87,13 @@ public class SuaSanPhamController {
 				sp.setMoTa(moTa);
 				sp.setIdNhaSanXuat(idNhaSanXuat);
 				sp.setIdLoaiMay(idLoaiMay);
-				System.out.println(idNhaSanXuat);
-				System.out.println(idLoaiMay);
+				List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
+				List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
 				int kq = db.suaSanPham(sp);	
 				modelMap.addAttribute("sanPham",sp);
 				modelMap.addAttribute("result", kq);
+				modelMap.addAttribute("ListLoaiMay", listLoaiMay);
+				modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
 			}catch(Exception ex) {
 				modelMap.addAttribute("message", "Loi luu file!");
 			}

@@ -41,16 +41,28 @@
 	   		  <div class="form-group">
 			    <label for="exampleFormControlSelect1">Nhà sản xuất</label>
 				    <select class="form-control" name="idNhaSanXuat" id="exampleFormControlSelect1">
-				      <option value="1">DELL </option>
-				      <option value="2">HP</option>
-				      <option value="3">ASUS</option>
+				      <c:forEach var="item" items="${ListNhaSanXuat}">
+				      	<c:if test="${item.idNhaSanXuat==sanPham.idNhaSanXuat}">
+				      		<option value="${item.idNhaSanXuat}" selected="selected">${item.tenNhaSanXuat}</option>
+				      	</c:if>
+				      	<c:if test="${item.idNhaSanXuat!=sanPham.idNhaSanXuat}">
+				      		<option value="${item.idNhaSanXuat}">${item.tenNhaSanXuat}</option>
+				      	</c:if>
+				      </c:forEach>
 				 </select>
 		      </div>
 			  <div class="form-group">
 			    <label for="exampleFormControlSelect1">Loại máy</label>
 			    <select class="form-control" name="idLoaiMay" id="exampleFormControlSelect1">
-			      <option value="1">Laptop</option>
-			      <option value="2">PC</option>
+			      <c:forEach var="item" items="${ListLoaiMay}">
+			      	<c:if test="${item.idLoaiMay==sanPham.idLoaiMay}">
+			      		<option value="${item.idLoaiMay}" selected="selected">${item.tenLoaiMay}</option>
+			      	</c:if>
+			      	<c:if test="${item.idLoaiMay!=sanPham.idLoaiMay}">
+			      		<option value="${item.idLoaiMay}">${item.tenLoaiMay}</option>
+			      	</c:if>
+			      	<option value="${item.idLoaiMay}">${item.tenLoaiMay}</option>
+			      </c:forEach>
 			    </select>
 			  </div>
 			  <div class="form-group">
