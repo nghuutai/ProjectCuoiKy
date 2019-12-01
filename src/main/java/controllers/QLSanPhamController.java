@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import dao.DatabaseCauHinhMay;
 import dao.DatabaseLoaiMay;
 import dao.DatabaseNhaSanXuat;
 import dao.DatabaseSanPham;
@@ -27,13 +28,14 @@ import entity.SanPham;
 public class QLSanPhamController {
 
 	@Autowired
-	ServletContext context;
+	ServletContext servletContext;
+	ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
+	DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+	DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+	DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
+	DatabaseCauHinhMay dbchm = (DatabaseCauHinhMay) context.getBean("databasecauhinhmay");
 	@GetMapping("/admin")
 	public String trangQuanLySanPham(ModelMap modelMap) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
-		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
-		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 		List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
 		List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
 		List<SanPham> listSP = db.getListSanPham();
@@ -50,19 +52,13 @@ public class QLSanPhamController {
 		}else {
 			try {
 				String path1 = "/Users/nguyenhuutai/Documents/ProjectSpring/project2/src/main/webapp/recources/imagess/" + image.getOriginalFilename();
-				String path =  context.getRealPath("/images/" + image.getOriginalFilename());
-				System.out.println(path1);
+				String path =  servletContext.getRealPath("/images/" + image.getOriginalFilename());
 				File fileDir = new File(path1);
-				System.out.println(fileDir.exists());
 				if(!fileDir.exists()){
 					fileDir.mkdirs();
 				}
 				image.transferTo(new File(path1));
 				String hinhAnh = image.getOriginalFilename();
-				ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-				DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
-				DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
-				DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 				SanPham sp = new SanPham();
 				sp.setTenSanPham(tenSanPham);
 				sp.setDonGia(donGia);
@@ -87,11 +83,13 @@ public class QLSanPhamController {
 	
 	@GetMapping("/admin/{id}")
 	public String xoaSanPham(@PathVariable int id, ModelMap modelMap) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
-		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
-		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
+		SanPham sanPham = db.getSanPhamByID(id);
 		db.xoaSanPham(id);
+		if(sanPham.getIdLoaiMay() == 1) {
+			dbchm.xoaCauHinhLaptop(id);
+		}else{
+			dbchm.xoaCauHinhPC(id);
+		}
 		List<SanPham> listSP = db.getListSanPham();
 		List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
 		List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();

@@ -1,3 +1,6 @@
+<%@page import="dao.DatabaseCauHinhMay"%>
+<%@page import="org.springframework.context.support.ClassPathXmlApplicationContext"%>
+<%@page import="org.springframework.context.ApplicationContext"%>
 <%@page import="entity.SanPham"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -73,20 +76,52 @@
 					    </tr>
 					  </thead>
 					  <tbody>
-					  	<c:forEach var="p" items="${listSP}" varStatus="status">
+					  	<%
+					  		List<SanPham> listSanPham = (List<SanPham>) request.getAttribute("listSP");
+					    	for(SanPham sp : listSanPham){
+					    		String img= "/resources/images/" + sp.getHinhAnh();
+					    		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
+					    		DatabaseCauHinhMay databaseCauHinhMay = (DatabaseCauHinhMay) context.getBean("databasecauhinhmay");
+					    		int check = databaseCauHinhMay.checkCauHinhLaptop(sp.getIdSanPham(),sp.getIdLoaiMay());
+					  	%>
+					  	<%-- <c:forEach var="p" items="${listSP}" varStatus="status"> --%>
 					  		<tr>
-						      <th scope="row">${p.idSanPham}</th>
-						      <td>${p.tenSanPham}</td>
-						      <td>${p.donGia}</td>
-						      <td style="max-width: 100px">${p.soLuong} ${p.idNhaSanXuat} ${p.idLoaiMay}</td>
-						      <td><img style="witdh:100px; height:100px;" src="<c:url value='/resources/images/${p.hinhAnh}' />"></td>
+						      <th scope="row"><%=sp.getIdSanPham() %></th>
+						      <td><%=sp.getTenSanPham() %></td>
+						      <td><%=sp.getDonGia() %></td>
+						      <td style="max-width: 100px"><%=sp.getSoLuong() %> <%=sp.getIdNhaSanXuat() %> <%=sp.getIdLoaiMay() %></td>
+						      <c:set var="hinhanh" value="<%=sp.getHinhAnh() %>"/>
+						      <td><img style="witdh:100px; height:100px;" src="<c:url value='/resources/images/${hinhanh}' />"></td>
 						      <td style="max-width: 120px">
 						      	<div class="btn-group">
-						      		<a href="/CNJava/suasanpham/${p.idSanPham}" ><button style="width:80px;" type="button" class="btn btn-warning">Edit</button></a>
+						      		<a href="/CNJava/suasanpham/<%=sp.getIdSanPham() %>" ><button style="width:80px;" type="button" class="btn btn-warning">Edit</button></a>
 						      	</div>
 						      	<div class="btn-group">
-						      		<a onclick="return confirmDelete('Bấm OK để xoá sản phẩm')" href="/CNJava/admin/${p.idSanPham}"><button style="width:80px;" type="button" class="btn btn-danger">Delete</button></a>
+						      		<a onclick="return confirmDelete('Bấm OK để xoá sản phẩm')" href="/CNJava/admin/<%=sp.getIdSanPham() %>"><button style="width:80px;" type="button" class="btn btn-danger">Delete</button></a>
 						      	</div>
+						      	<%
+						      		if(check == 1){
+						      	%>
+						      		<div class="btn-group">
+						      			<button style="width:80px;" type="button" class="btn btn-danger" disabled="disabled">Cấu hình</button>
+						      		</div>
+						      	<% 
+						      		}else{
+						      			if(sp.getIdLoaiMay()==1){
+						      	%>
+						      		<div class="btn-group">
+						      			<a href="/CNJava/cauhinhlaptop/<%=sp.getIdSanPham()%>"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
+						      		</div>
+						      	<%
+						      			}else{
+						      	%>
+						      		<div class="btn-group">
+						      			<a href="/CNJava/cauhinhpc/<%=sp.getIdSanPham()%>"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
+						      		</div>
+						      	<%		
+						      			}
+						      		}
+						      	%>
 						      	<%-- <div class="btn-group">
 						      		<a href="/CNJava/admin/${p.idSanPham}"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
 						      	</div> --%>
@@ -100,7 +135,10 @@
 							    </script>
 						      </td>
 						    </tr>
-					  	</c:forEach>
+					  	<%-- </c:forEach> --%>
+					  	<%
+					    	}
+					  	%>
 					  </tbody>
 					</table>
 				</div>

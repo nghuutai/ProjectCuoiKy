@@ -27,14 +27,14 @@ import entity.SanPham;
 public class SuaSanPhamController {
 
 	@Autowired
-	ServletContext context;
-
+	ServletContext servletContext;
+	ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
+	DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+	DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+	DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 	@GetMapping("suasanpham/{id}")
 	public String trangSuaSanPham(@PathVariable int id, ModelMap modelMap) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
-		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
-		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
+		
 		SanPham sp = db.getSanPhamByID(id);
 		List<NhaSanXuat> listNhaSanXuat = dbnsx.getListNhaSanXuat();
 		List<LoaiMay> listLoaiMay = dblm.getListLoaiMay();
@@ -47,10 +47,10 @@ public class SuaSanPhamController {
 	
 	@PostMapping("suasanpham/{id}")
 	public String suaSanPham(@RequestParam int idSanPham, @RequestParam String tenSanPham, @RequestParam int donGia,@RequestParam String moTa,@RequestParam int idNhaSanXuat,@RequestParam int idLoaiMay, @RequestParam int soLuong, @RequestParam("hinhAnh") MultipartFile image, ModelMap modelMap) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
-		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
-		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
-		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
+//		ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
+//		DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
+//		DatabaseLoaiMay dblm = (DatabaseLoaiMay) context.getBean("databaseloaimay");
+//		DatabaseNhaSanXuat dbnsx = (DatabaseNhaSanXuat) context.getBean("databasenhasanxuat");
 		if(image.isEmpty()) {
 			SanPham sp = new SanPham();
 			sp.setIdSanPham(idSanPham);
@@ -70,9 +70,8 @@ public class SuaSanPhamController {
 		}else {
 			try {
 				String path1 = "/Users/nguyenhuutai/Documents/ProjectSpring/project2/src/main/webapp/recources/imagess/" + image.getOriginalFilename();
-				System.out.println(path1);
 				File fileDir = new File(path1);
-				System.out.println(fileDir.exists());
+//				System.out.println(fileDir.exists());
 				if(!fileDir.exists()){
 					fileDir.mkdirs();
 				}
