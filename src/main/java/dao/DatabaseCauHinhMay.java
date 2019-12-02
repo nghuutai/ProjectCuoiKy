@@ -45,6 +45,8 @@ private JdbcTemplate jdbcTemplate;
 		return chlt;
 	}
 	
+	
+	
 	public CauHinhPC getCauHinhPCByID(int id) {
 		String sql = "SELECT * FROM CauHinhPC where IdSanPham = ?;";
 		CauHinhPC chpc = jdbcTemplate.queryForObject(sql, new RowMapper<CauHinhPC>() {
@@ -62,5 +64,38 @@ private JdbcTemplate jdbcTemplate;
             }
 		}, id);
 		return chpc;
+	}
+	
+	public int checkCauHinhLaptop(int id, int idlm) {
+		String sql = "";
+		if(idlm == 1) {
+			sql = "SELECT count(*) FROM shopmaytinh.CauHinhLaptop where IdSanPham=?;";
+		}else if(idlm == 2) {
+			sql = "SELECT count(*) FROM shopmaytinh.CauHinhPC where IdSanPham=?;";
+		}
+		return jdbcTemplate.queryForObject(
+                sql, new Object[]{id}, Integer.class);
+	}
+	
+	public void addCauHinhLaptop(final CauHinhLaptop cauHinhLaptop) {
+		String sql = "INSERT INTO `shopmaytinh`.`CauHinhLaptop` (`IdSanPham`, `CPU`, `RAM`, `HardDisk`, `VGA`, `KichThuocManHinh`, `DoPhanGiaiManHinh`, `LoaiManHinh`, `TrongLuong`, `KichThuoc`, `OS`, `Pin`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+		int results = jdbcTemplate.update(sql, cauHinhLaptop.getIdSanPham(), cauHinhLaptop.getCpu(), cauHinhLaptop.getRam(), cauHinhLaptop.getHardDisk(), cauHinhLaptop.getVga(), cauHinhLaptop.getKichThuocManHinh(), cauHinhLaptop.getDoPhanGiaiManHinh(), cauHinhLaptop.getLoaiManHinh(), cauHinhLaptop.getTrongLuong(), cauHinhLaptop.getKichThuoc(), cauHinhLaptop.getOs(), cauHinhLaptop.getPin());
+	}
+	
+	public void addCauHinhPC(final CauHinhPC cauHinhPC) {
+		String sql = "INSERT INTO `shopmaytinh`.`CauHinhPC` (`IdSanPham`, `CPU`, `Mainboard`, `RAM`, `HardDisk`, `VGA`, `Nguon`, `Case`) VALUES (?, ?, ?, ?, ?, ?, ?, ?);";
+		int results = jdbcTemplate.update(sql, cauHinhPC.getIdSanPham(), cauHinhPC.getCpu(), cauHinhPC.getMainboard(), cauHinhPC.getRam(), cauHinhPC.getHardDisk(), cauHinhPC.getVga(), cauHinhPC.getNguon(), cauHinhPC.getmCase());
+	}
+	
+	public int xoaCauHinhPC(int id) {
+		String sql = "DELETE FROM `shopmaytinh`.`CauHinhPC` WHERE (`IdSanPham` = ?);";
+		int result = jdbcTemplate.update(sql, id);
+		return result;
+	}
+	
+	public int xoaCauHinhLaptop(int id) {
+		String sql = "DELETE FROM `shopmaytinh`.`CauHinhLaptop` WHERE (`IdSanPham` = ?);";
+		int result = jdbcTemplate.update(sql, id);
+		return result;
 	}
 }

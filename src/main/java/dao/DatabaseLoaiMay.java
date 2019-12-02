@@ -12,6 +12,7 @@ import org.springframework.jdbc.core.RowMapper;
 
 
 import entity.LoaiMay;
+import entity.NhaSanXuat;
 
 
 
