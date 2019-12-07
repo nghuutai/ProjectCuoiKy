@@ -26,6 +26,7 @@ import entity.SanPham;
 
 @Controller
 public class IndexController {
+	private final static int soSanPhamMotTrang = 9;
 	
 	ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
 	DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
@@ -33,7 +34,9 @@ public class IndexController {
 	@RequestMapping("/")
 	public String index(ModelMap model) {
 		List<SanPham> listSanPhamMoi = db.getListSanPhamMoi();
+		List<SanPham> listSanPhamBanChay = db.getListSanPhamBanChay();
 		model.addAttribute("ListSanPhamMoi", listSanPhamMoi);
+		model.addAttribute("ListSanPhamBanChay", listSanPhamBanChay);
 		return "Index";
 	}
 	
@@ -54,19 +57,52 @@ public class IndexController {
 	
 	@RequestMapping("/timkiem")
 	public String timKiemSanPham(ModelMap model, @RequestParam String timKiem) {
+		List<SanPham> listTimKiem = db.timKiemSanPhamLimit(timKiem, 0, soSanPhamMotTrang);
 		List<SanPham> listSPTK = db.timKiemSanPham(timKiem);
-		
+		int tongSanPham = listSPTK.size();
+		int soTrang;
+		int du = tongSanPham % soSanPhamMotTrang;
+		if(du == 0) {
+			soTrang = tongSanPham/soSanPhamMotTrang;
+		}else {
+			soTrang = (tongSanPham/soSanPhamMotTrang) + 1;
+		}
 		if(listSPTK.size() == 0) {
 			model.addAttribute("ThongBao", "Không có kết quả tìm kiếm nào cho '" + timKiem +"'");
 		}
 		
 		model.addAttribute("TimKiem", timKiem);
-		model.addAttribute("KetQua", listSPTK);
+		model.addAttribute("KetQua", listTimKiem);
+		model.addAttribute("SoTrang", soTrang);
+		model.addAttribute("Trang", 0);
 		return "TimKiem";
 	}
 	
-	@PostMapping("/timkiem/addquickview/{id}/{timkiem}")
-	public String addQuickviewTimKiemSanPham(HttpSession session, @PathVariable int id, @RequestParam int soLuong,ModelMap model, @PathVariable String timkiem) {
+	@RequestMapping("/timkiem/{timKiem}/{trang}")
+	public String timKiemSanPhamPhanTrang(ModelMap model, @PathVariable String timKiem, @PathVariable int trang) {
+		List<SanPham> listTimKiem = db.timKiemSanPhamLimit(timKiem, (trang-1)*soSanPhamMotTrang, soSanPhamMotTrang);
+		List<SanPham> listSPTK = db.timKiemSanPham(timKiem);
+		int tongSanPham = listSPTK.size();
+		int soTrang;
+		int du = tongSanPham % soSanPhamMotTrang;
+		if(du == 0) {
+			soTrang = tongSanPham/soSanPhamMotTrang;
+		}else {
+			soTrang = (tongSanPham/soSanPhamMotTrang) + 1;
+		}
+		if(listSPTK.size() == 0) {
+			model.addAttribute("ThongBao", "Không có kết quả tìm kiếm nào cho '" + timKiem +"'");
+		}
+		
+		model.addAttribute("TimKiem", timKiem);
+		model.addAttribute("KetQua", listTimKiem);
+		model.addAttribute("SoTrang", soTrang);
+		model.addAttribute("Trang", trang - 1);
+		return "TimKiem";
+	}
+	
+	@PostMapping("/timkiem/addquickview/{id}/{timkiem}/{trang}")
+	public String addQuickviewTimKiemSanPham(HttpSession session, @PathVariable int id, @RequestParam int soLuong,ModelMap model, @PathVariable String timkiem, @PathVariable int trang) {
 		HashMap<Integer, Cart> cartItems = (HashMap<Integer, Cart>) session.getAttribute("myCartItems");
 		if (cartItems == null) {
             cartItems = new HashMap<Integer,Cart>();
@@ -96,13 +132,23 @@ public class IndexController {
 			totalSL = totalSL + sl;
 		}
 		List<SanPham> listSPTK = db.timKiemSanPham(timkiem);
-		
+		List<SanPham> listTimKiem = db.timKiemSanPhamLimit(timkiem, (trang-1)*soSanPhamMotTrang, soSanPhamMotTrang);
+		int tongSanPham = listSPTK.size();
+		int soTrang;
+		int du = tongSanPham % soSanPhamMotTrang;
+		if(du == 0) {
+			soTrang = tongSanPham/soSanPhamMotTrang;
+		}else {
+			soTrang = (tongSanPham/soSanPhamMotTrang) + 1;
+		}
 		if(listSPTK.size() == 0) {
 			model.addAttribute("ThongBao", "Không có kết quả tìm kiếm nào cho '" + timkiem +"'");
 		}
 		
 		model.addAttribute("TimKiem", timkiem);
-		model.addAttribute("KetQua", listSPTK);
+		model.addAttribute("KetQua", listTimKiem);
+		model.addAttribute("SoTrang", soTrang);
+		model.addAttribute("Trang", trang - 1);
 		session.setAttribute("totalCart", total);
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("count", totalSL);
@@ -116,6 +162,7 @@ public class IndexController {
             cartItems = new HashMap<Integer,Cart>();
         }
 		List<SanPham> listSanPhamMoi = db.getListSanPhamMoi();
+		List<SanPham> listSanPhamBanChay = db.getListSanPhamBanChay();
 		
 		SanPham sp = db.getSanPhamByID(id);
 		Cart cart = new Cart();
@@ -144,6 +191,7 @@ public class IndexController {
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("count", totalSL);
 		model.addAttribute("ListSanPhamMoi", listSanPhamMoi);
+		model.addAttribute("ListSanPhamBanChay", listSanPhamBanChay);
 		return "Index";
 	}
 }
