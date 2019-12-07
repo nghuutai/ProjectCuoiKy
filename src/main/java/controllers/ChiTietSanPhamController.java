@@ -71,6 +71,7 @@ public class ChiTietSanPhamController {
             cartItems = new HashMap<Integer,Cart>();
         }
 		
+		DatabaseCauHinhMay dbchm = (DatabaseCauHinhMay) context.getBean("databasecauhinhmay");
 		SanPham sp = db.getSanPhamByID(id);
 		List<SanPham> sanPhamLienQuan = db.getListSanPhamLienQuan(id, sp.getIdNhaSanXuat(), sp.getIdLoaiMay(), 6);
 		Cart cart = new Cart();
@@ -95,6 +96,17 @@ public class ChiTietSanPhamController {
 			total = total + tt;
 			totalSL = totalSL + sl;
 		}
+		
+		CauHinhLaptop cauHinhLaptop;
+		CauHinhPC cauHinhPC;
+		if(sp.getIdLoaiMay() == 1) {
+			cauHinhLaptop = dbchm.getCauHinhLaptopByID(id);
+			model.addAttribute("CauHinhMay", cauHinhLaptop);
+		}else {
+			cauHinhPC = dbchm.getCauHinhPCByID(id);
+			model.addAttribute("CauHinhMay", cauHinhPC);
+		}
+		
 		session.setAttribute("totalCart", total);
 		session.setAttribute("myCartItems", cartItems);
 		session.setAttribute("count", totalSL);

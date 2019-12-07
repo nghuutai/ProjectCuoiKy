@@ -58,7 +58,7 @@
 						      <img style="width: 300px; height:300px;" src="<c:url value='/resources/images/${item.hinhAnh}' />" alt="..." class="img-thumbnail">
 						    </div>
 						    <div class="col-6">
-							   <form action="/CNJava/timkiem/addquickview/${item.idSanPham}/${TimKiem}" method="post">	
+							   <form action="/CNJava/timkiem/addquickview/${item.idSanPham}/${TimKiem}/${Trang+1}" method="post">	
 							      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
 							      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
 							      <div class="form-group row" style="margin-top:20px;">
@@ -97,6 +97,41 @@
 	        </c:forEach>
 	   	</div>
    	</div>
+   	
+   	<%
+		int trang = (Integer)request.getAttribute("Trang");
+	%>
+   	<div class="row">
+   		<div class="col-12">
+		   	<div class="pagination-0" style="margin-top:20px;float:right;">
+				<nav aria-label="Page navigation example">
+				  <ul class="pagination">
+				    <li class="page-item <%=trang==0 ? "disabled" : ""%>">
+				      <a class="page-link" href="/CNJava/timkiem/${TimKiem}/<%=trang %>" aria-label="Previous">
+				        <span aria-hidden="true">&laquo;</span>
+				        <span class="sr-only">Previous</span>
+				      </a>
+				    </li>
+			    	<%
+				    	int soTrang = (Integer)request.getAttribute("SoTrang");
+				    	for(int i = 0; i < soTrang; i++){
+			    	%>
+			    		<li class="page-item <%=i==trang ? "active" : "" %>"><a class="page-link" href="/CNJava/timkiem/${TimKiem}/<%=i+1 %>" ><%=i+1 %></a></li>
+				    <%		
+				    	}
+				    %>			    	
+				    <li class="page-item <%=trang+1==soTrang ? "disabled" : ""%>">
+				      <a class="page-link" href="/CNJava/timkiem/${TimKiem}/<%=trang+2 %>" aria-label="Next">
+				        <span aria-hidden="true">&raquo;</span>
+				        <span class="sr-only">Next</span>
+				      </a>
+				    </li>
+				  </ul>
+				</nav>
+			</div>
+		</div>
+	</div>
+   	
    	<script type="text/javascript">
    	function quickDetail(id) {
 		$.ajax({
