@@ -87,16 +87,16 @@ public class ThongTinDonHangController {
 			helper.setSubject(tieuDe);
 			
 			
-		    String htmlMsg = "<html>" + 
-		    		"<head>" + 
-		    		"<meta charset=\"UTF-8\">" +
-		    		"</head>\n" +
-		    		"<body>"
-		    		+"<h3>Xin chào " +hoaDon.getTenKhachHang() + "</h3>"
-	                +"<h3>Địa chỉ :  " +hoaDon.getDiaChi() + "</h3>"
-	                +"<h3>Số điện thoại :  " +hoaDon.getSoDienThoai() + "</h3>"
-	                +"</body>"
-	                +"</html>";
+//		    String htmlMsg = "<html>" + 
+//		    		"<head>" + 
+//		    		"<meta charset=\"UTF-8\">" +
+//		    		"</head>\n" +
+//		    		"<body>"
+//		    		+"<h3>Xin chào " +hoaDon.getTenKhachHang() + "</h3>"
+//	                +"<h3>Địa chỉ :  " +hoaDon.getDiaChi() + "</h3>"
+//	                +"<h3>Số điện thoại :  " +hoaDon.getSoDienThoai() + "</h3>"
+//	                +"</body>"
+//	                +"</html>";
 	         
 	        mail.setContent(mail(hoaDon, cartItems), "text/html;charset=utf-8");
 		    
@@ -141,6 +141,7 @@ public class ThongTinDonHangController {
 				"			<div style=\"margin-bottom:20px;\">Email: " + hoaDon.getEmail() + "</div>\n" + 
 				"			<div style=\"margin-bottom:20px;\">Số điện thoại: " + hoaDon.getSoDienThoai() + "</div>\n" + 
 				"			<div style=\"margin-bottom:20px;\">Địa chỉ: " + hoaDon.getDiaChi() + "</div>\n" + 
+				"			<div style=\"margin-bottom:20px;\">Thành phố: " + hoaDon.getThanhPho() + "</div>\n" +
 				"		</div>\n" + 
 				"		<div class=\"col-6\">\n" + 
 				"			<div class=\"row\">\n" + 

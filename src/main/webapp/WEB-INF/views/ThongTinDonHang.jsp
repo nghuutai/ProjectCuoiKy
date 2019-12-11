@@ -20,6 +20,7 @@
 			<div style="margin-bottom:20px;">Email: ${sessionScope.hoaDon.email}</div>
 			<div style="margin-bottom:20px;">Số điện thoại: ${sessionScope.hoaDon.soDienThoai}</div>
 			<div style="margin-bottom:20px;">Địa chỉ: ${sessionScope.hoaDon.diaChi}</div>
+			<div style="margin-bottom:20px;">Thành phố: ${sessionScope.hoaDon.thanhPho}</div>
 		</div>
 		<div class="col-6">
 			<div class="row">
