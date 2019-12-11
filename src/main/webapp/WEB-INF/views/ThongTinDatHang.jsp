@@ -1,3 +1,6 @@
+<%@page import="java.util.Map"%>
+<%@page import="java.util.Iterator"%>
+<%@page import="java.util.HashMap"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -26,6 +29,21 @@
 	  <div class="form-group">
 	    <label for="exampleFormControlInput1">Địa chỉ</label>
 	    <input type="text" name="diaChi" value="${sessionScope.hoaDon.diaChi}" class="form-control" id="exampleFormControlInput1" placeholder="Nhập địa chỉ" required>
+	  </div>
+	  <div class="form-group">
+	    <label for="exampleFormControlSelect1">Thành phố</label>
+	    <select class="form-control" name="thanhPho" id="exampleFormControlSelect1">
+	      <%
+	      	HashMap<String, String> arrTinh = (HashMap<String,String>) request.getAttribute("Tinh");
+	    	Iterator<HashMap.Entry<String,String>> iterator = arrTinh.entrySet().iterator();
+	    	while(iterator.hasNext()){	
+	    		HashMap.Entry<String, String> entry = iterator.next();
+	      %>	
+	      		<option value="<%=entry.getValue() %>"><%=entry.getValue() %></option>
+	      <%
+	    	}
+	      %>
+	    </select>
 	  </div>
 	  <div class="row">
 		<div class="col-12" style="text-align:center;margin-top:20px;">

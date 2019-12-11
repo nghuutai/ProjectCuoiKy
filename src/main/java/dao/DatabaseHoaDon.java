@@ -16,8 +16,8 @@ public class DatabaseHoaDon {
 	}
 	
 	public int addHoaDon(HoaDon hoaDon) {
-		String sql = "INSERT INTO `shopmaytinh`.`HoaDon` (`TenKhachHang`, `Email`, `SoDienThoai`, `DiaChi`, `NgayTao`, `TinhTrangHoaDon`) VALUES (?, ?, ?, ?, ?, ?);";
-		int result = jdbcTemplate.update(sql, hoaDon.getTenKhachHang(), hoaDon.getEmail(), hoaDon.getSoDienThoai(), hoaDon.getDiaChi(), hoaDon.getNgayTao(), hoaDon.getTinhTrangHoaDon());
+		String sql = "INSERT INTO `shopmaytinh`.`HoaDon` (`TenKhachHang`, `Email`, `SoDienThoai`, `DiaChi`, `ThanhPho`, `NgayTao`, `TinhTrangHoaDon`) VALUES (?, ?, ?, ?, ?, ?, ?);";
+		int result = jdbcTemplate.update(sql, hoaDon.getTenKhachHang(), hoaDon.getEmail(), hoaDon.getSoDienThoai(), hoaDon.getDiaChi(), hoaDon.getThanhPho(), hoaDon.getNgayTao(), hoaDon.getTinhTrangHoaDon());
 		return result;
 	}
 	

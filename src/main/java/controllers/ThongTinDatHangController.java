@@ -17,13 +17,32 @@ import entity.HoaDon;
 @Controller
 public class ThongTinDatHangController {
 
+	public HashMap<String, String> getThanhPho(){
+		HashMap<String, String> arrTinh = new HashMap<String, String>();
+		arrTinh.put("TPHCM", "TP Hồ Chí Minh");
+		arrTinh.put("HaNoi", "Hà Nội");
+		arrTinh.put("DaNang", "Đà Nẵng");
+		arrTinh.put("ThanhHoa", "Thanh Hoá");
+		arrTinh.put("CanTho", "Cần Thơ");
+		arrTinh.put("QuangNgai", "Quãng Ngãi");
+		arrTinh.put("PhuYen", "Phú Yên");
+		arrTinh.put("NhaTrang", "Nha Trang");
+		arrTinh.put("DongNai", "Đồng Nai");
+		arrTinh.put("LamDong", "Lâm Đồng");
+		arrTinh.put("GiaLai", "Gia Lai");
+		arrTinh.put("TayNinh", "Tây Ninh");
+		return arrTinh;
+	}
+	
+	
 	@RequestMapping("/thongtin")
-	public String thongTinDatHang() {
+	public String thongTinDatHang(ModelMap model) {
+		model.addAttribute("Tinh", getThanhPho());
 		return "ThongTinDatHang";
 	}
 	
 	@PostMapping("/thongtin")
-	public String taoDonHang(ModelMap model, @RequestParam String tenKhachHang, @RequestParam String email, @RequestParam String soDienThoai, @RequestParam String diaChi, HttpSession session) {
+	public String taoDonHang(ModelMap model, @RequestParam String tenKhachHang, @RequestParam String email, @RequestParam String soDienThoai, @RequestParam String diaChi, @RequestParam String thanhPho, HttpSession session) {
 		HashMap<Integer, Cart> cartItems = (HashMap<Integer, Cart>) session.getAttribute("myCartItems");
         if (cartItems == null) {
             cartItems = new HashMap<Integer, Cart>();
@@ -36,8 +55,9 @@ public class ThongTinDatHangController {
         hoaDon.setEmail(email);
         hoaDon.setSoDienThoai(soDienThoai);
         hoaDon.setDiaChi(diaChi);
+        hoaDon.setThanhPho(thanhPho);
         hoaDon.setNgayTao(date);
-        hoaDon.setTinhTrangHoaDon(true);
+        hoaDon.setTinhTrangHoaDon(1);
         
 		session.setAttribute("totalCart",session.getAttribute("totalCart"));
 		session.setAttribute("myCartItems", cartItems);

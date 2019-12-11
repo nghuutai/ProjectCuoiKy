@@ -11,18 +11,20 @@ public class HoaDon {
 	private String email;
 	private String soDienThoai;
 	private String diaChi;
+	private String thanhPho;
 	private Date ngayTao;
-	private Boolean tinhTrangHoaDon;
+	private int tinhTrangHoaDon;
 	private ChiTietHoaDon chiTietHoaDon;
 	
-	public HoaDon(int maHoaDon, String tenKhachHang, String email, String soDienThoai, String diaChi, Date ngayTao,
-			Boolean tinhTrangHoaDon) {
+	public HoaDon(int maHoaDon, String tenKhachHang, String email, String soDienThoai, String diaChi, String thanhPho, Date ngayTao,
+			int tinhTrangHoaDon) {
 		super();
 		this.maHoaDon = maHoaDon;
 		this.tenKhachHang = tenKhachHang;
 		this.email = email;
 		this.soDienThoai = soDienThoai;
 		this.diaChi = diaChi;
+		this.thanhPho = thanhPho;
 		this.ngayTao = ngayTao;
 		this.tinhTrangHoaDon = tinhTrangHoaDon;
 	}
@@ -79,11 +81,11 @@ public class HoaDon {
 		this.ngayTao = ngayTao;
 	}
 
-	public Boolean getTinhTrangHoaDon() {
+	public int getTinhTrangHoaDon() {
 		return tinhTrangHoaDon;
 	}
 
-	public void setTinhTrangHoaDon(Boolean tinhTrangHoaDon) {
+	public void setTinhTrangHoaDon(int tinhTrangHoaDon) {
 		this.tinhTrangHoaDon = tinhTrangHoaDon;
 	}
 
@@ -94,4 +96,13 @@ public class HoaDon {
 	public void setChiTietHoaDon(ChiTietHoaDon chiTietHoaDon) {
 		this.chiTietHoaDon = chiTietHoaDon;
 	}
+
+	public String getThanhPho() {
+		return thanhPho;
+	}
+
+	public void setThanhPho(String thanhPho) {
+		this.thanhPho = thanhPho;
+	}
+	
 }
