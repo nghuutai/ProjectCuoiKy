@@ -10,8 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
-import entity.LoaiMay;
-import entity.NhaSanXuat;
+
 import entity.SanPham;
 
 public class DatabaseSanPham {
@@ -64,7 +63,7 @@ private JdbcTemplate jdbcTemplate;
 	}
 	
 	public List<SanPham> getListSanPhamBanChay() {
-		String sql = "SELECT ChiTietHoaDon.IdSanPham,TenSanPham,DonGia,SoLuong,HinhAnh,MoTa,IdNhaSanXuat,IdLoaiMay,sum(SoLuongMua)  FROM shopmaytinh.ChiTietHoaDon,shopmaytinh.SanPham where ChiTietHoaDon.IdSanPham = SanPham.IdSanPham group by IdSanPham order by sum(SoLuongMua) desc limit 0,6;";
+		String sql = "SELECT ChiTietHoaDon.IdSanPham,TenSanPham,DonGia,SoLuong,HinhAnh,MoTa,IdNhaSanXuat,IdLoaiMay,sum(SoLuongMua)  FROM shopmaytinh.ChiTietHoaDon,shopmaytinh.SanPham,shopmaytinh.HoaDon where ChiTietHoaDon.IdSanPham = SanPham.IdSanPham and ChiTietHoaDon.IdHoaDon = HoaDon.IdHoaDon and TinhTrangHoaDon <> 3 group by IdSanPham order by sum(SoLuongMua) desc limit 0,6;";
 		List<SanPham> listSanPhamMoi = jdbcTemplate.query(sql, new RowMapper<SanPham>() {
 
 			public SanPham mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -401,6 +400,12 @@ private JdbcTemplate jdbcTemplate;
 	
 	public int suaSoLuong(int sl, int id) {
 		String sql = "UPDATE `shopmaytinh`.`SanPham` SET `SoLuong` = `SoLuong` - ? WHERE (`idSanPham` = ?);";
+		int result = jdbcTemplate.update(sql, sl, id);
+		return result;
+	}
+	
+	public int tangSoLuong(int sl, int id) {
+		String sql = "UPDATE `shopmaytinh`.`SanPham` SET `SoLuong` = `SoLuong` + ? WHERE (`idSanPham` = ?);";
 		int result = jdbcTemplate.update(sql, sl, id);
 		return result;
 	}
