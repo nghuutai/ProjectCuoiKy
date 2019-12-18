@@ -42,6 +42,7 @@ public class QLSanPhamController {
 		modelMap.addAttribute("listSP", listSP);
 		modelMap.addAttribute("ListLoaiMay", listLoaiMay);
 		modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
+		modelMap.addAttribute("TrangChon", 1);
 		return "QuanLySanPham";
 	}
 	
@@ -74,6 +75,7 @@ public class QLSanPhamController {
 				modelMap.addAttribute("listSP", listSP);
 				modelMap.addAttribute("ListLoaiMay", listLoaiMay);
 				modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
+				modelMap.addAttribute("TrangChon", 1);
 			}catch(Exception ex) {
 				modelMap.addAttribute("message", "Loi luu file!");
 			}
@@ -96,6 +98,7 @@ public class QLSanPhamController {
 		modelMap.addAttribute("listSP", listSP);
 		modelMap.addAttribute("ListLoaiMay", listLoaiMay);
 		modelMap.addAttribute("ListNhaSanXuat", listNhaSanXuat);
+		modelMap.addAttribute("TrangChon", 1);
 		return "QuanLySanPham";
 	}
 }

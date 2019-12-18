@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <jsp:include page="Header.jsp"></jsp:include>
 	
 	<!-- Modal -->
@@ -63,7 +64,7 @@
 			      		</div>
 			      	</div>
 			      </td>
-			      <td>${item.value.sanPham.donGia}</td>
+			      <td style="min-width: 130px;"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.value.sanPham.donGia}"/> đ</td>
 			      <td> 
 			      	<div class="input-group">
 					    <div class="input-group-prepend">
@@ -80,7 +81,7 @@
 					    </div>
 				    </div>
 			      </td>
-			      <td>${item.value.tongTien()}đ</td>
+			      <td style="min-width: 130px;"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.value.tongTien()}"/> đ</td>
 			    </tr>
 		    </c:forEach>
 		   	<script>
@@ -102,7 +103,7 @@
 	</c:if>	
 	<div class="row">
 		<div class="col-12" style="text-align:right;">
-			<span style="margin-right:90px;font-size:20px;">Tổng tiền: ${sessionScope.totalCart}đ</span>
+			<span style="margin-right:90px;font-size:20px;">Tổng tiền: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${sessionScope.totalCart}"/> đ</span>
 		</div>
 	</div>
 	<div class="row">

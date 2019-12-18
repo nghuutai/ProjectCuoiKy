@@ -11,6 +11,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+    <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
 	
 	<div class="row" style="margin:20px;">
@@ -166,7 +167,7 @@
 						  			<div class="col-3"><%=stt %></div>
 						  			<div class="col-3"><%=sp.getTenSanPham() %></div>
 						  			<div class="col-3"><%=chiTietHD.getSoLuongMua() %></div>
-						  			<div class="col-3"><%=thanhTien %></div>
+						  			<div class="col-3"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="<%=thanhTien %>"/> đ</div>
 						  		</div>
 						  		<div class="dropdown-divider"></div>
 					  		<%
@@ -174,7 +175,7 @@
 					  			}
 					  		%>
 					  		<div class="form-group">
-					  			<label for="exampleFormControlInput1" style="float:right;">Tổng tiền đơn hàng: <%=tongTienDonHang %></label>
+					  			<label for="exampleFormControlInput1" style="float:right;">Tổng tiền đơn hàng: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="<%=tongTienDonHang %>"/> đ</label>
 					  		</div>
 					  		<div class="form-group">
 							    <label for="exampleFormControlInput1">Trạng thái đơn hàng</label>
