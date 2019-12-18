@@ -6,6 +6,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
 	
 		<div class="row">
@@ -88,7 +89,7 @@
 					  		<tr>
 						      <th scope="row"><%=sp.getIdSanPham() %></th>
 						      <td><%=sp.getTenSanPham() %></td>
-						      <td><%=sp.getDonGia() %></td>
+						      <td style="min-width: 130px;"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="<%=sp.getDonGia() %>"/> đ</td>
 						      <td style="max-width: 100px"><%=sp.getSoLuong() %> <%=sp.getIdNhaSanXuat() %> <%=sp.getIdLoaiMay() %></td>
 						      <c:set var="hinhanh" value="<%=sp.getHinhAnh() %>"/>
 						      <td><img style="witdh:100px; height:100px;" src="<c:url value='/resources/images/${hinhanh}' />"></td>

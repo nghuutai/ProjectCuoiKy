@@ -1,5 +1,6 @@
 package dao;
 
+import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -11,6 +12,8 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 
 import entity.HoaDon;
+import entity.ThongKe;
+import entity.ThongKeChiTiet;
 
 
 public class DatabaseHoaDon {
@@ -95,5 +98,32 @@ public class DatabaseHoaDon {
 		String sql = "UPDATE `shopmaytinh`.`HoaDon` SET `TinhTrangHoaDon` = ? WHERE (`IdHoaDon` = ?);";
 		int result = jdbcTemplate.update(sql, tinhTrang, id);
 		return result;
+	}
+	
+	public List<ThongKe> thongKe(int thang, int nam) {
+		String sql = "SELECT NgayTao,sum(DonGia*SoLuongMua) as ThanhTien FROM shopmaytinh.HoaDon,shopmaytinh.ChiTietHoaDon,shopmaytinh.SanPham where HoaDon.IdHoaDon=ChiTietHoaDon.IdHoaDon and ChiTietHoaDon.IdSanPham=SanPham.IdSanPham and month(NgayTao) = ? and year(NgayTao) = ? group by NgayTao;";
+		List<ThongKe> tk = jdbcTemplate.query(sql, new RowMapper<ThongKe>() {
+			public ThongKe mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ThongKe thongKe= new ThongKe();
+				thongKe.setNgay(rs.getDate("NgayTao"));
+				thongKe.setTongTien(rs.getInt("ThanhTien"));
+				return thongKe;
+            }
+		}, thang, nam);
+		return tk;
+	}
+	
+	public List<ThongKeChiTiet> thongKeChiTiet(Date ngay){
+		String sql = "SELECT HoaDon.IdHoaDon,TenKhachHang,sum(SoLuongMua*DonGia) as TongTien FROM shopmaytinh.HoaDon,shopmaytinh.ChiTietHoaDon,shopmaytinh.SanPham where HoaDon.IdHoaDon=ChiTietHoaDon.IdHoaDon and ChiTietHoaDon.IdSanPham=SanPham.IdSanPham and NgayTao = ? group by HoaDOn.IdHoaDon;";
+		List<ThongKeChiTiet> tk = jdbcTemplate.query(sql, new RowMapper<ThongKeChiTiet>() {
+			public ThongKeChiTiet mapRow(ResultSet rs, int rowNum) throws SQLException {
+				ThongKeChiTiet thongKeChiTiet= new ThongKeChiTiet();
+				thongKeChiTiet.setIdHoaDon(rs.getInt("IdHoaDon"));
+				thongKeChiTiet.setTenKhachHang(rs.getString("TenKhachHang"));
+				thongKeChiTiet.setTongTien(rs.getInt("TongTien"));
+				return thongKeChiTiet;
+            }
+		}, ngay);
+		return tk;
 	}
 }

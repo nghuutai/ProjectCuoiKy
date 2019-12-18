@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
     <jsp:include page="Header.jsp"></jsp:include>
     
   	<div class="row">
@@ -80,10 +81,10 @@
 		            <div class="card-body">
 		              <p class="card-text" style="height:35px;">${item.tenSanPham}</p>
 		              <c:if test="${item.soLuong == 0}">
-		              	<p class="card-text">${item.donGia}đ (Đã hết hàng)</p>
+		              	<p class="card-text"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.donGia }"/> đ (Đã hết hàng)</p>
 		              </c:if>
 		              <c:if test="${item.soLuong > 0}">
-		              	<p class="card-text">${item.donGia}đ</p>
+		              	<p class="card-text"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.donGia }"/> đ</p>
 		              </c:if>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">
@@ -115,7 +116,7 @@
 						      <form action="/CNJava/chitietloaisanpham/phantrang/${LoaiMay.idLoaiMay}/${Gia}/${Trang+1}/addquickview/${item.idSanPham}" method="post">	
 						      </c:if>	
 						      <h3 style="margin-bottom:20px;">${item.tenSanPham}</h3>
-						      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${item.donGia}đ</label><br/>
+						      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.donGia }"/> đ</label><br/>
 						      <div class="form-group row" style="margin-top:20px;">
 						        <div class="col-5" style="margin-top:10px;">
 							    	<label >Số lượng:</label>

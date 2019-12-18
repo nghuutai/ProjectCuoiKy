@@ -13,15 +13,23 @@
 	<div class="container">
 		
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
-		  <a class="navbar-brand" href="/project2/">Home</a>
+		  <a class="navbar-brand" href="/CNJava/admin">Home</a>
 		  
+		  <%
+		  	int trangChon = (Integer) request.getAttribute("TrangChon");
+		  	String active = "active";
+		  	String no = "";
+		  %>
 		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
 		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item active">
+		      <li class="nav-item <%=trangChon==1 ? active : no%>">
 		        <a class="nav-link" href="/CNJava/admin">Quản lý sản phẩm<span class="sr-only">(current)</span></a>
 		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">Quản lý câu hình SP</a>
+		      <li class="nav-item <%=trangChon==2 ? active : no%>">
+		        <a class="nav-link" href="/CNJava/quanlydonhang">Quản lý đơn hàng</a>
+		      </li>
+		      <li class="nav-item <%=trangChon==3 ? active : no%>">
+		        <a class="nav-link" href="/CNJava/thongke">Thống kê doanh thu</a>
 		      </li>
 		    </ul>
 		    <form class="form-inline my-2 my-lg-0" action="/project2/timkiem" method="get">

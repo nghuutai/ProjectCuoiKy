@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	<jsp:include page="Header.jsp"></jsp:include>
 	<div style="margin:20px;">
 		<h2>THÔNG TIN ĐƠN HÀNG</h2>
@@ -28,7 +29,7 @@
 					<h3>Đơn hàng</h3>
 				</div>
 				<div class="col-6">
-					<a href="/CNJava/giohang"><button type="button" class="btn btn-light" style="float:right;">Sửa</button></a>
+					<a href="/CNJava/giohangchitiet"><button type="button" class="btn btn-light" style="float:right;">Sửa</button></a>
 				</div>
 			</div>
 			<div class="dropdown-divider"></div>
@@ -45,11 +46,11 @@
 			  		<tr>
 				  		<td>${item.value.sanPham.tenSanPham}</td>
 				  		<td>${item.value.soLuong}</td>
-				  		<td>${item.value.tongTien()}đ</td>
+				  		<td style="min-width: 120px;"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.value.tongTien() }"/> đ</td>
 			  		</tr>
 			  	</c:forEach>
 			  	<tr>
-			  		<td colspan="3" style="text-align:right;">Tổng tiền: ${sessionScope.totalCart}đ</td>
+			  		<td colspan="3" style="text-align:right;">Tổng tiền: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${sessionScope.totalCart}"/> đ</td>
 			  	</tr>
 			  </tbody>
 			</table>

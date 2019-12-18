@@ -8,6 +8,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
     	<jsp:include page="Header.jsp"></jsp:include>
 	
 		<!-- Modal -->
@@ -37,7 +38,7 @@
 		    <div class="col-6">
 		      <form action="/CNJava/chitietsanpham/add/${SanPham.idSanPham}" method="post">	
 			      <h2 style="margin-top:20px;margin-bottom:20px;">${SanPham.tenSanPham}</h2>
-			      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: ${SanPham.donGia}đ</label><br/>
+			      <label style="margin-top:20px;margin-bottom:20px;font-size:20px;">Giá: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${SanPham.donGia }"/> đ</label><br/>
 			      <div class="form-group row" style="margin-top:20px;">
 			        <div class="col-3" style="margin-top:10px;">
 				    	<label>Số lượng:</label>
@@ -186,7 +187,7 @@
 		            <img class="card-img-top"style="height:130px;" src="<c:url value='<%=path %>' />" alt="Card image cap">
 		            <div class="card-body">
 		              <p class="card-text" style="height:90px;"><%=sanPham.getTenSanPham() %></p>
-		              <p class="card-text"><%=sanPham.getDonGia() %>đ</p>
+		              <p class="card-text"><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="<%=sanPham.getDonGia() %>"/> đ</p>
 		              <div class="d-flex justify-content-between align-items-center">
 		                <div class="btn-group">
 		                  <a href="/CNJava/chitietsanpham/<%=sanPham.getIdSanPham() %>"><button type="button" class="btn btn-sm btn-outline-secondary">Xem chi tiết</button></a>

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
    	<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+   	<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,19 +37,19 @@
 	        </a>
 	        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
 	          <c:forEach var="item" items="${sessionScope.myCartItems}">
-	          	  <div class="row">
+	          	  <div class="row" style="width:250px;">
 		          	<div class="col-4"><img src="<c:url value='/resources/images/${item.value.sanPham.hinhAnh}' />" alt="..." class="img-thumbnail"></div>
-		          	<div class="col" style="si">
+		          	<div class="col">
 		          		<div style="font-size:9px;">Tên sản phâm: ${item.value.sanPham.tenSanPham}</div>
 		          		<div style="font-size:9px;">Số lượng: ${item.value.soLuong}</div>
-		          		<div style="font-size:9px;">Đơn giá: ${item.value.sanPham.donGia}</div>
+		          		<div style="font-size:9px;">Đơn giá: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${item.value.sanPham.donGia}"/> đ</div>
 		          	</div>
 		          </div>
 	          </c:forEach>
 	          <c:if test="${sessionScope.count>0}">
 		          <div class="dropdown-divider"></div>
 		          <div class="row">
-		          	<div class="col-12" style="font-size:9px;">Tổng tiền: ${sessionScope.totalCart} vnđ</div>
+		          	<div class="col-12" style="font-size:9px;">Tổng tiền: <fmt:formatNumber type = "number" maxFractionDigits = "3" value ="${sessionScope.totalCart}"/> vnđ</div>
 		          	<div class="col-12">
 			          	<a href="/CNJava/giohangchitiet"><span style="font-size:10px; margin-left:0px;">Chi tiết</span></a>
 			        </div>

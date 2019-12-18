@@ -43,6 +43,7 @@ public class QuanLyDonHangController {
 		model.addAttribute("HoaDon", listHoaDon);
 		model.addAttribute("TinhTrang", getTinhTrang());
 		model.addAttribute("TinhTrangChon", 0);
+		model.addAttribute("TrangChon", 2);
 		return "QuanLyDonHang";
 	}
 	
@@ -60,6 +61,7 @@ public class QuanLyDonHangController {
 		model.addAttribute("HoaDon", listHoaDon);
 		model.addAttribute("TinhTrang", getTinhTrang());
 		model.addAttribute("TinhTrangChon", 0);
+		model.addAttribute("TrangChon", 2);
 		return "QuanLyDonHang";
 	}
 	
@@ -72,6 +74,7 @@ public class QuanLyDonHangController {
 		model.addAttribute("HoaDon", listHoaDon);
 		model.addAttribute("TinhTrang", getTinhTrang());
 		model.addAttribute("TinhTrangChon", tinhTrang1);
+		model.addAttribute("TrangChon", 2);
 		return "QuanLyDonHang";
 	}
 	
@@ -90,6 +93,7 @@ public class QuanLyDonHangController {
 		model.addAttribute("HoaDon", listHoaDon);
 		model.addAttribute("TinhTrang", getTinhTrang());
 		model.addAttribute("TinhTrangChon", 0);
+		model.addAttribute("TrangChon", 2);
 		return "QuanLyDonHang";
 	}
 }
