@@ -1,3 +1,5 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="entity.ThongKe"%>
 <%@page import="java.util.List"%>
@@ -5,7 +7,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
+	<jsp:include page="HeaderAd.jsp"></jsp:include>
 		<div class="row" style="margin-left:20px;margin-right:20px;margin-top:20px;">
 			<div class="col-12" style="text-align:center;margin-top:20px;">
 				<h3>THỐNG KÊ DOANH THU</h3>
@@ -89,10 +91,13 @@
 				  		List<ThongKe> listThongKe = (List<ThongKe>) request.getAttribute("ListThongKe");
 				  		for(ThongKe thongKe : listThongKe){
 				  			stt++;
+				  			Date date = thongKe.getNgay();
+				  			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				  			String ngay = format.format(date);
 				  	%>
 				  		<tr>
 					      <th scope="row"><%=stt %></th>
-					      <td><%=thongKe.getNgay() %></td>
+					      <td><%=ngay %></td>
 					      <td><fmt:formatNumber type = "number" maxFractionDigits = "3" value ="<%=thongKe.getTongTien() %>"/> đ</td>
 					      <td><a href="/CNJava/thongkechitiet/<%=thongKe.getNgay() %>"><button type="button" class="btn btn-danger">Chi tiết</button></td></a>
 					    </tr>

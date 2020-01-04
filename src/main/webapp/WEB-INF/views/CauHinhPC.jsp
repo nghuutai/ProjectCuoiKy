@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
+	<jsp:include page="HeaderAd.jsp"></jsp:include>
 	
 	<div style="margin:10px;">
 		<div class="row">
@@ -10,7 +10,7 @@
 				${SanPham.tenSanPham}
 			</div>
 		</div>
-		<form action="/CNJava/cauhinhpc/${SanPham.idSanPham}" method="post" enctype="multipart/form-data">
+		<form action="/CNJava/cauhinhpc/1/${SanPham.idSanPham}" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-12">
 					<div class="form-group" hidden="hidden">

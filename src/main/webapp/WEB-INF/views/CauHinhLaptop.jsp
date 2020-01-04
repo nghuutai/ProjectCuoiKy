@@ -1,16 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-
-	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
 	
+	<jsp:include page="HeaderAd.jsp"></jsp:include>
 	<div style="margin:10px;">
 		<div class="row">
 			<div class="col-12">
 				${SanPham.tenSanPham}
 			</div>
 		</div>
-		<form action="/CNJava/cauhinhlaptop/${SanPham.idSanPham}" method="post" enctype="multipart/form-data">
+		<form action="/CNJava/cauhinhlaptop/1/${SanPham.idSanPham}" method="post" enctype="multipart/form-data">
 			<div class="row">
 				<div class="col-12">
 					<div class="form-group" hidden="hidden">
