@@ -1,16 +1,25 @@
+<%@page import="java.text.SimpleDateFormat"%>
+<%@page import="java.sql.Date"%>
 <%@page import="entity.ThongKeChiTiet"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
+	<jsp:include page="HeaderAd.jsp"></jsp:include>
 		<div class="row" style="margin-left:20px;margin-right:20px;margin-top:20px;">
 			<div class="col-12" style="margin-left:20px;">
 				<a href="/CNJava/thongke">Quay về</a>
 			</div>
+			<%
+				
+				Date date = (Date)request.getAttribute("Ngay");
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+				String ngay = format.format(date);
+			%>
+			<c:set var="ngay" value="<%=ngay %>"></c:set>
 			<div class="col-12" style="text-align:center;margin-top:20px;">
-				<h4>Các đơn hàng trong ngày ${Ngay }</h4>
+				<h4>Các đơn hàng trong ngày ${ngay }</h4>
 			</div>
 			<div class="col-12" style="margin:20px;">
 				<table class="table">

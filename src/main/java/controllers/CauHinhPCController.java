@@ -19,18 +19,20 @@ public class CauHinhPCController {
 	ApplicationContext context = new ClassPathXmlApplicationContext("IoC.xml");
 	DatabaseSanPham db = (DatabaseSanPham) context.getBean("databasesanpham");
 	DatabaseCauHinhMay dbchm = (DatabaseCauHinhMay) context.getBean("databasecauhinhmay");
-	@RequestMapping("/cauhinhpc/{id}")
-	public String cauHinhPC(@PathVariable int id, ModelMap model) {
+	@RequestMapping("/cauhinhpc/{trangchon}/{id}")
+	public String cauHinhPC(@PathVariable int id, @PathVariable int trangchon, ModelMap model) {
 		SanPham sanPham = db.getSanPhamByID(id);
 		model.addAttribute("SanPham", sanPham);
+		model.addAttribute("TrangChon", trangchon);
 		return "CauHinhPC";
 	}
 	
-	@PostMapping("/cauhinhpc/{id}")
-	public String themCauHinhPC(ModelMap model, @ModelAttribute CauHinhPC chpc) {
+	@PostMapping("/cauhinhpc/{trangchon}/{id}")
+	public String themCauHinhPC(ModelMap model, @PathVariable int trangchon, @ModelAttribute CauHinhPC chpc) {
 		dbchm.addCauHinhPC(chpc);
 		SanPham sanPham = db.getSanPhamByID(chpc.getIdSanPham());
 		model.addAttribute("SanPham", sanPham);
+		model.addAttribute("TrangChon", trangchon);
 		return "CauHinhPC";
 	}
 }

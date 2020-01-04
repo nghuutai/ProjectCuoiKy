@@ -12,7 +12,7 @@
     pageEncoding="UTF-8"%>
     <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
     <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
+	<jsp:include page="HeaderAd.jsp"></jsp:include>
 	
 	<div class="row" style="margin:20px;">
 		<form action="/CNJava/quanlydonhang/timkiem" method="post">

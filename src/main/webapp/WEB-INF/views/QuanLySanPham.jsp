@@ -7,7 +7,7 @@
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-	<jsp:include page="HeaderAdmin.jsp"></jsp:include>
+	<jsp:include page="HeaderAd.jsp"></jsp:include>
 	
 		<div class="row">
 			<div class="col-3">
@@ -111,13 +111,13 @@
 						      			if(sp.getIdLoaiMay()==1){
 						      	%>
 						      		<div class="btn-group">
-						      			<a href="/CNJava/cauhinhlaptop/<%=sp.getIdSanPham()%>"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
+						      			<a href="/CNJava/cauhinhlaptop/1/<%=sp.getIdSanPham()%>"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
 						      		</div>
 						      	<%
 						      			}else{
 						      	%>
 						      		<div class="btn-group">
-						      			<a href="/CNJava/cauhinhpc/<%=sp.getIdSanPham()%>"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
+						      			<a href="/CNJava/cauhinhpc/1/<%=sp.getIdSanPham()%>"><button style="width:80px;" type="button" class="btn btn-danger">Cấu hình</button></a>
 						      		</div>
 						      	<%		
 						      			}

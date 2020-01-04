@@ -52,7 +52,7 @@ public class QLSanPhamController {
 			modelMap.addAttribute("message", "Vui long chon file");
 		}else {
 			try {
-				String path1 = "/Users/nguyenhuutai/Documents/ProjectSpring/project2/src/main/webapp/recources/imagess/" + image.getOriginalFilename();
+				String path1 = "/Users/nguyenhuutai/Documents/JavaThayBinh/ProjectCuoiKy/src/main/webapp/recources/imagess/" + image.getOriginalFilename();
 				String path =  servletContext.getRealPath("/images/" + image.getOriginalFilename());
 				File fileDir = new File(path1);
 				if(!fileDir.exists()){
